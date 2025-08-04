@@ -1,0 +1,59 @@
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+   
+<div class="container  mt-3 w-50">
+    <div class="card shadow-sm ">
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'class': 'row g-3'}}) }}
+
+            {% for field in form %}
+                {% if field.vars.name != '_token' %}
+                    <div class="col-md-9">
+                        {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(field) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+
+            <div class="col-12 mt-3  justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary">
+                    {{ button_label|default('Ajouter') }}
+                </button>
+                <a href="{{ path('app_secteur_valide_index') }}" class="btn btn-outline-secondary">
+                    Annuler
+                </a>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.numeric-field').forEach(function (input) {
+        input.addEventListener('input', function () {
+            let value = input.value.replace(',', '.');
+
+            if (isNaN(value)) {
+                alert("Veuillez entrer uniquement un nombre (ex: 12,34)");
+                input.value = '';
+            } else {
+                input.value = value;
+            }
+        });
+    });
+});
+</script>
+
+
+
+

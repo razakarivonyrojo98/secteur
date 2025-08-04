@@ -1,0 +1,185 @@
+{% block stylesheets %}
+<style>
+
+.sidebar {
+    width: 15%;
+    background: #1e1e2f;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.sidebar .brand {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.sidebar .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.sidebar .menu li {
+    margin-bottom: 20px;
+   
+}
+
+.sidebar .menu a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.sidebar .menu a i {
+    margin-right: 10px;
+}
+
+.sidebar .menu a:hover {
+    background: #b5b5b9ff;
+    cursor: pointer;
+    color: #1e1e2f
+}
+
+.sidebar .menu .logout a {
+    color: #f55;
+    font-weight: bold;
+    text-wrap:wrap;
+
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    flex: 1;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+.menu2 i {
+    display:none;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+    padding: 20px 10px;
+}
+
+.sidebar.collapsed .menu a {
+    justify-content: center;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.sidebar.collapsed .menu a span {
+    display: none;
+}
+
+.sidebar .menu a span {
+    margin-left: 10px;
+}
+
+/* Pour éviter le saut du contenu */
+.main-content.collapsed {
+    margin-left: 70px;
+}
+
+.sidebar .menu a.active {
+    background-color: #ffffff;
+    color: #1e1e2f;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .menu2 i {
+        top: 20px;
+        left: 20px;
+        font-size: 30px;
+        color: #1e1e2f;
+        display:block;
+        position:absolute;
+    }
+
+}
+</style>
+{% endblock %}
+
+
+<div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="brand">Application</div>
+        <ul class="menu">
+           <li>
+                <a href="{{ path('app_secteur_valide_index') }}"
+                class="{{ app.request.attributes.get('_route') == 'app_secteur_valide_index' ? 'active' : '' }}">
+                    <i class="bi bi-diagram-3"></i><span> Secteurs</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('app_fonction_valide_index') }}"
+                class="{{ app.request.attributes.get('_route') == 'app_fonction_valide_index' ? 'active' : '' }}">
+                    <i class="bi bi-person-gear"></i><span> Fonctions</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ path('app_origine_valide_index') }}"
+                class="{{ app.request.attributes.get('_route') == 'app_origine_valide_index' ? 'active' : '' }}">
+                    <i class="bi bi-globe"></i><span> Origines</span>
+                </a>
+            </li>
+
+            <li class="logout"><a href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i><span> Déconnexion</span></a></li>
+        </ul>
+
+    </nav>
+    <div class="menu2">
+    <i class="bi bi-list"></i>
+    </div>
+
+</div>
+
+{% block script %}
+<script>
+    const iMenu = document.querySelector(".bi-list");
+    const sidebar = document.querySelector(".sidebar");
+    const secteur = document.querySelector(".entete");
+
+    iMenu.addEventListener("click", () => {
+        const sidebarIsVisible = sidebar.classList.toggle("display-sidebar");
+
+        if (sidebarIsVisible) {
+            // Si affiché
+            iMenu.style.position = "relative";
+            iMenu.style.left = "20%";
+            iMenu.style.zIndex = "100";
+            iMenu.style.color = "white";
+            secteur.style.marginLeft = "25%";
+        } else {
+            // Si masqué
+            iMenu.style.position = "";
+            iMenu.style.left = "";
+            iMenu.style.zIndex = "";
+            iMenu.style.color = "";
+            secteur.style.marginLeft = "";
+        }
+    });
+</script>
+{% endblock %}
+

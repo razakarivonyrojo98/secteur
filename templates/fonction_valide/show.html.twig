@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FonctionValide{% endblock %}
+
+{% block body %}
+    <h1>FonctionValide</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fonction_valide.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ fonction_valide.annee }}</td>
+            </tr>
+            <tr>
+                <th>Nummois</th>
+                <td>{{ fonction_valide.nummois }}</td>
+            </tr>
+            <tr>
+                <th>Ensemble</th>
+                <td>{{ fonction_valide.ensemble }}</td>
+            </tr>
+            <tr>
+                <th>Prod_alim_bois_nalc</th>
+                <td>{{ fonction_valide.prodAlimBoisNalc }}</td>
+            </tr>
+            <tr>
+                <th>Tissu_vetement</th>
+                <td>{{ fonction_valide.tissuVetement }}</td>
+            </tr>
+            <tr>
+                <th>Logt_et_combust</th>
+                <td>{{ fonction_valide.logtEtCombust }}</td>
+            </tr>
+            <tr>
+                <th>Am_eqmena_entc_m</th>
+                <td>{{ fonction_valide.amEqmenaEntcM }}</td>
+            </tr>
+            <tr>
+                <th>Sante</th>
+                <td>{{ fonction_valide.sante }}</td>
+            </tr>
+            <tr>
+                <th>Transports</th>
+                <td>{{ fonction_valide.transports }}</td>
+            </tr>
+            <tr>
+                <th>Loisir_spect_cult</th>
+                <td>{{ fonction_valide.loisirSpectCult }}</td>
+            </tr>
+            <tr>
+                <th>Enseignement</th>
+                <td>{{ fonction_valide.enseignement }}</td>
+            </tr>
+            <tr>
+                <th>Hotel_cafe_rest</th>
+                <td>{{ fonction_valide.hotelCafeRest }}</td>
+            </tr>
+            <tr>
+                <th>Autres_bien_serv</th>
+                <td>{{ fonction_valide.autresBienServ }}</td>
+            </tr>
+            <tr>
+                <th>Bois_alc_tab</th>
+                <td>{{ fonction_valide.boisAlcTab }}</td>
+            </tr>
+            <tr>
+                <th>Communications</th>
+                <td>{{ fonction_valide.communications }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fonction_valide_index') }}">back to list</a>
+
+    <a href="{{ path('app_fonction_valide_edit', {'id': fonction_valide.id}) }}">edit</a>
+
+    {{ include('fonction_valide/_delete_form.html.twig') }}
+{% endblock %}

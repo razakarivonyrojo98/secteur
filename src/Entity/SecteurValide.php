@@ -1,0 +1,185 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\SecteurValideRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: SecteurValideRepository::class)]
+class SecteurValide
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $annee = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $nummois = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $ensemble = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $prodvivr_n_t = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $prodvivr_t_n_riz = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $prodvivr_t_riz = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $prodmanufind = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $prodmanufart = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $servpubl = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $servpriv = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $ppn = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getAnnee(): ?string
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(string $annee): static
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    public function getNummois(): ?string
+    {
+        return $this->nummois;
+    }
+
+    public function setNummois(string $nummois): static
+    {
+        $this->nummois = $nummois;
+
+        return $this;
+    }
+
+    public function getEnsemble(): ?string
+    {
+        return $this->ensemble;
+    }
+
+    public function setEnsemble(string $ensemble): static
+    {
+        $this->ensemble = $ensemble;
+
+        return $this;
+    }
+
+    public function getProdvivrNT(): ?string
+    {
+        return $this->prodvivr_n_t;
+    }
+
+    public function setProdvivrNT(string $prodvivr_n_t): static
+    {
+        $this->prodvivr_n_t = $prodvivr_n_t;
+
+        return $this;
+    }
+
+    public function getProdvivrTNRiz(): ?string
+    {
+        return $this->prodvivr_t_n_riz;
+    }
+
+    public function setProdvivrTNRiz(string $prodvivr_t_n_riz): static
+    {
+        $this->prodvivr_t_n_riz = $prodvivr_t_n_riz;
+
+        return $this;
+    }
+
+    public function getProdvivrTRiz(): ?string
+    {
+        return $this->prodvivr_t_riz;
+    }
+
+    public function setProdvivrTRiz(string $prodvivr_t_riz): static
+    {
+        $this->prodvivr_t_riz = $prodvivr_t_riz;
+
+        return $this;
+    }
+
+    public function getProdmanufind(): ?string
+    {
+        return $this->prodmanufind;
+    }
+
+    public function setProdmanufind(string $prodmanufind): static
+    {
+        $this->prodmanufind = $prodmanufind;
+
+        return $this;
+    }
+
+    public function getProdmanufart(): ?string
+    {
+        return $this->prodmanufart;
+    }
+
+    public function setProdmanufart(string $prodmanufart): static
+    {
+        $this->prodmanufart = $prodmanufart;
+
+        return $this;
+    }
+
+    public function getServpubl(): ?string
+    {
+        return $this->servpubl;
+    }
+
+    public function setServpubl(string $servpubl): static
+    {
+        $this->servpubl = $servpubl;
+
+        return $this;
+    }
+
+    public function getServpriv(): ?string
+    {
+        return $this->servpriv;
+    }
+
+    public function setServpriv(string $servpriv): static
+    {
+        $this->servpriv = $servpriv;
+
+        return $this;
+    }
+
+    public function getPpn(): ?string
+    {
+        return $this->ppn;
+    }
+
+    public function setPpn(string $ppn): static
+    {
+        $this->ppn = $ppn;
+
+        return $this;
+    }
+}

@@ -3,3 +3,19 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    
+secteur:
+  path: /secteur
+  controller: App\Controller\SecteurController::index
+
+fonction:
+  path: /fonction
+  controller: App\Controller\FonctionController::index
+
+fonctionvalide:
+  path: /fonction/valide
+  controller: App\Controller\FonctionValideController::index
+
+origine:
+  path: /origine
+  controller: App\Controller\OrigineController::index

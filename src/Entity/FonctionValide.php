@@ -1,0 +1,247 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\FonctionValideRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: FonctionValideRepository::class)]
+class FonctionValide
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+
+    #[ORM\Column]
+    private ?string $annee = null;
+
+
+    #[ORM\Column]
+    private ?string $nummois = null;
+
+    #[ORM\Column]
+    private ?string $ensemble = null;
+
+    #[ORM\Column]
+    private ?string $prod_alim_bois_nalc = null;
+
+    #[ORM\Column]
+    private ?string $tissu_vetement = null;
+
+    #[ORM\Column]
+    private ?string $logt_et_combust = null;
+
+    #[ORM\Column]
+    private ?string $am_eqmena_entc_m = null;
+
+    #[ORM\Column]
+    private ?string $sante = null;
+
+    #[ORM\Column]
+    private ?string $transports = null;
+
+    #[ORM\Column]
+    private ?string $loisir_spect_cult = null;
+
+    #[ORM\Column]
+    private ?string $enseignement = null;
+
+    #[ORM\Column]
+    private ?string $hotel_cafe_rest = null;
+
+    #[ORM\Column]
+    private ?string $autres_bien_serv = null;
+
+    #[ORM\Column]
+    private ?string $bois_alc_tab = null;
+
+    #[ORM\Column]
+    private ?string $communications = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getAnnee(): ?string
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(string $annee): static
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    public function getNummois(): ?string
+    {
+        return $this->nummois;
+    }
+
+    public function setNummois(string $nummois): static
+    {
+        $this->nummois = $nummois;
+
+        return $this;
+    }
+
+    public function getEnsemble(): ?string
+    {
+        return $this->ensemble;
+    }
+
+    public function setEnsemble(string $ensemble): static
+    {
+        $this->ensemble = $ensemble;
+
+        return $this;
+    }
+
+    public function getProdAlimBoisNalc(): ?string
+    {
+        return $this->prod_alim_bois_nalc;
+    }
+
+    public function setProdAlimBoisNalc(string $prod_alim_bois_nalc): static
+    {
+        $this->prod_alim_bois_nalc = $prod_alim_bois_nalc;
+
+        return $this;
+    }
+
+    public function getTissuVetement(): ?string
+    {
+        return $this->tissu_vetement;
+    }
+
+    public function setTissuVetement(string $tissu_vetement): static
+    {
+        $this->tissu_vetement = $tissu_vetement;
+
+        return $this;
+    }
+
+    public function getLogtEtCombust(): ?string
+    {
+        return $this->logt_et_combust;
+    }
+
+    public function setLogtEtCombust(string $logt_et_combust): static
+    {
+        $this->logt_et_combust = $logt_et_combust;
+
+        return $this;
+    }
+
+    public function getAmEqmenaEntcM(): ?string
+    {
+        return $this->am_eqmena_entc_m;
+    }
+
+    public function setAmEqmenaEntcM(string $am_eqmena_entc_m): static
+    {
+        $this->am_eqmena_entc_m = $am_eqmena_entc_m;
+
+        return $this;
+    }
+
+    public function getSante(): ?string
+    {
+        return $this->sante;
+    }
+
+    public function setSante(string $sante): static
+    {
+        $this->sante = $sante;
+
+        return $this;
+    }
+
+    public function getTransports(): ?string
+    {
+        return $this->transports;
+    }
+
+    public function setTransports(string $transports): static
+    {
+        $this->transports = $transports;
+
+        return $this;
+    }
+
+    public function getLoisirSpectCult(): ?string
+    {
+        return $this->loisir_spect_cult;
+    }
+
+    public function setLoisirSpectCult(string $loisir_spect_cult): static
+    {
+        $this->loisir_spect_cult = $loisir_spect_cult;
+
+        return $this;
+    }
+
+    public function getEnseignement(): ?string
+    {
+        return $this->enseignement;
+    }
+
+    public function setEnseignement(string $enseignement): static
+    {
+        $this->enseignement = $enseignement;
+
+        return $this;
+    }
+
+    public function getHotelCafeRest(): ?string
+    {
+        return $this->hotel_cafe_rest;
+    }
+
+    public function setHotelCafeRest(string $hotel_cafe_rest): static
+    {
+        $this->hotel_cafe_rest = $hotel_cafe_rest;
+
+        return $this;
+    }
+
+    public function getAutresBienServ(): ?string
+    {
+        return $this->autres_bien_serv;
+    }
+
+    public function setAutresBienServ(string $autres_bien_serv): static
+    {
+        $this->autres_bien_serv = $autres_bien_serv;
+
+        return $this;
+    }
+
+    public function getBoisAlcTab(): ?string
+    {
+        return $this->bois_alc_tab;
+    }
+
+    public function setBoisAlcTab(string $bois_alc_tab): static
+    {
+        $this->bois_alc_tab = $bois_alc_tab;
+
+        return $this;
+    }
+
+    public function getCommunications(): ?string
+    {
+        return $this->communications;
+    }
+
+    public function setCommunications(string $communications): static
+    {
+        $this->communications = $communications;
+
+        return $this;
+    }
+}

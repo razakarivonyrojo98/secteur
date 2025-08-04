@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SecteurValide{% endblock %}
+
+{% block body %}
+    <h1>SecteurValide</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ secteur_valide.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ secteur_valide.annee }}</td>
+            </tr>
+            <tr>
+                <th>Nummois</th>
+                <td>{{ secteur_valide.nummois }}</td>
+            </tr>
+            <tr>
+                <th>Ensemble</th>
+                <td>{{ secteur_valide.ensemble }}</td>
+            </tr>
+            <tr>
+                <th>Prodvivr_n_t</th>
+                <td>{{ secteur_valide.prodvivrNT }}</td>
+            </tr>
+            <tr>
+                <th>Prodvivr_t_n_riz</th>
+                <td>{{ secteur_valide.prodvivrTNRiz }}</td>
+            </tr>
+            <tr>
+                <th>Prodvivr_t_riz</th>
+                <td>{{ secteur_valide.prodvivrTRiz }}</td>
+            </tr>
+            <tr>
+                <th>Prodmanufind</th>
+                <td>{{ secteur_valide.prodmanufind }}</td>
+            </tr>
+            <tr>
+                <th>Prodmanufart</th>
+                <td>{{ secteur_valide.prodmanufart }}</td>
+            </tr>
+            <tr>
+                <th>Servpubl</th>
+                <td>{{ secteur_valide.servpubl }}</td>
+            </tr>
+            <tr>
+                <th>Servpriv</th>
+                <td>{{ secteur_valide.servpriv }}</td>
+            </tr>
+            <tr>
+                <th>Ppn</th>
+                <td>{{ secteur_valide.ppn }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_secteur_valide_index') }}">back to list</a>
+
+    <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}">edit</a>
+
+    {{ include('secteur_valide/_delete_form.html.twig') }}
+{% endblock %}

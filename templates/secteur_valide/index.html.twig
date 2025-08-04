@@ -1,0 +1,216 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SecteurValide index{% endblock %}
+
+{% block stylesheets %}
+<style>
+.entete{
+    padding: 20px;
+    margin-left: 15%;
+
+}
+.add{
+    background-color: #2c5eaa;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    text-decoration: none;
+    height: 40px;
+    margin-left: 12px;
+}
+.heading {
+    display: flex;
+    background-color: #232f3e;
+    box-shadow: 0px 1px 2px #232f3e;
+
+}
+h1 {
+    color: coral;
+    font-weight: bold; 
+    background: transparent;
+    padding: 7px;
+    
+}
+.outer-wrapper {
+    margin: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 3px #9e9d9d;
+    width: 80vw !important;
+     justify-content: center;  /* Centrage horizontal */
+    align-items: center;      /* Centrage vertical */
+    
+}
+.table-wrapper {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    height: fit-content;
+    margin: 15px;
+    padding-bottom: 20px;    
+}
+
+table {   
+    min-width: max-content;    
+    border-collapse: separate;
+    border-spacing: 0px;  
+    font-size: 13px;
+    text-align: center;
+}
+
+
+table th{
+    position: sticky; 
+    top: 0px;  
+    background-color: #b6b8bbff;
+    color: rgb(12, 12, 11);  
+    text-align: center;
+    font-weight: normal;
+
+} 
+table th, table td {   
+    padding: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
+table td {
+    text-align: center; 
+    padding-left: 20px;
+    
+}
+
+th.sortable {
+    position: relative;
+    user-select: none;
+}
+
+th.sortable::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    font-size: 12px;
+}
+
+th.sortable.asc::after {
+    content: '▲';
+}
+
+th.sortable.desc::after {
+    content: '▼';
+}
+
+@media (max-width: 850px) {
+    .entete {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="entete">
+
+       <div class="row my-4 px-3 align-items-center justify-content-between">
+            <div class="col-md-3">
+                <label for="columnSelect" class="form-label mb-1">Choisir une colonne :</label>
+                <select id="columnSelect" class="form-select">
+                    <option value="">-- Sélectionner --</option>
+                    <option value="0">Annee</option>
+                    <option value="1">Nummois</option>
+                    <option value="2">Ensemble</option>
+                    <option value="3">Prodvivr_n_t</option>
+                    <option value="4">Prodvivr_t_n_riz</option>
+                    <option value="5">Prodvivr_t_riz</option>
+                    <option value="6">Prodmanufind</option>
+                    <option value="7">Prodmanufart</option>
+                    <option value="8">Servpubl</option>
+                    <option value="9">Servpriv</option>
+                    <option value="10">Ppn</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-none" id="searchColumnWrapper">
+                <label for="searchInput" class="form-label mb-1">Rechercher :</label>
+                <input type="text" id="searchInput" class="form-control" placeholder="Entrez une valeur...">
+            </div>
+            <div class="col-md-2 text-end">
+                <a class="add btn btn-primary" href="{{ path('app_secteur_valide_new') }}">
+                    <i class="bi bi-plus-circle"></i> Ajouter
+                </a>
+            </div>
+        </div>
+
+    <div class="outer-wrapper">
+    <div class="table-wrapper">
+    <table class="table" id="sortableTable">
+        <thead>
+            <tr>
+          
+                <th class="sortable">Annee</th>
+                <th class="sortable">Nummois</th>
+                <th class="sortable">Ensemble</th>
+                <th class="sortable">Prodvivr_n_t</th>
+                <th class="sortable">Prodvivr_t_n_riz</th>
+                <th class="sortable">Prodvivr_t_riz</th>
+                <th class="sortable">Prodmanufind</th>
+                <th class="sortable">Prodmanufart</th>
+                <th class="sortable">Servpubl</th>
+                <th class="sortable">Servpriv</th>
+                <th class="sortable">Ppn</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for secteur_valide in secteur_valides %}
+            <tr>
+              
+                <td>{{ secteur_valide.annee }}</td>
+                <td>{{ secteur_valide.nummois }}</td>
+                <td>{{ secteur_valide.ensemble }}</td>
+                <td>{{ secteur_valide.prodvivrNT }}</td>
+                <td>{{ secteur_valide.prodvivrTNRiz }}</td>
+                <td>{{ secteur_valide.prodvivrTRiz }}</td>
+                <td>{{ secteur_valide.prodmanufind }}</td>
+                <td>{{ secteur_valide.prodmanufart }}</td>
+                <td>{{ secteur_valide.servpubl }}</td>
+                <td>{{ secteur_valide.servpriv }}</td>
+                <td>{{ secteur_valide.ppn }}</td>
+                <td>
+                    {#<a href="{{ path('app_secteur_valide_show', {'id': secteur_valide.id}) }}">show</a>#}
+                    <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}"
+                    class="btn btn-sm btn-outline-primary"
+                    title="Modifier">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+
+                    <form method="post"
+                        action="{{ path('app_secteur_valide_delete', {'id': secteur_valide.id}) }}"
+                        class="form-delete"
+                        data-id="{{ secteur_valide.id }}"
+                        style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ secteur_valide.id) }}">
+                        <button type="submit" class="btn btn-sm btn-danger"> <i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    </div>
+    </div>
+    </div>
+
+<script src="{{ asset('js/secteur_valide.js') }}"></script>
+
+
+{% endblock %}

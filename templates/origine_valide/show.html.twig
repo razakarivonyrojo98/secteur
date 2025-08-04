@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OrigineValide{% endblock %}
+
+{% block body %}
+    <h1>OrigineValide</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ origine_valide.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ origine_valide.annee }}</td>
+            </tr>
+            <tr>
+                <th>Nummois</th>
+                <td>{{ origine_valide.nummois }}</td>
+            </tr>
+            <tr>
+                <th>Ensemble</th>
+                <td>{{ origine_valide.ensemble }}</td>
+            </tr>
+            <tr>
+                <th>Prodlocal</th>
+                <td>{{ origine_valide.prodlocal }}</td>
+            </tr>
+            <tr>
+                <th>Prodsemimp</th>
+                <td>{{ origine_valide.prodsemimp }}</td>
+            </tr>
+            <tr>
+                <th>Prodimport</th>
+                <td>{{ origine_valide.prodimport }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_origine_valide_index') }}">back to list</a>
+
+    <a href="{{ path('app_origine_valide_edit', {'id': origine_valide.id}) }}">edit</a>
+
+    {{ include('origine_valide/_delete_form.html.twig') }}
+{% endblock %}
