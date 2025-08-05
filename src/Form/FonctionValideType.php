@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
 class FonctionValideType extends AbstractType
@@ -81,7 +82,7 @@ class FonctionValideType extends AbstractType
         };
 
         $builder
-            ->add('annee', NumberType::class, $anneeField('Année'))
+            ->add('annee', IntegerType::class, $anneeField('Année'))
             ->add('nummois', ChoiceType::class, $moisField('Numéro du mois'))
 
             ->add('ensemble', NumberType::class, $numberField('Ensemble'))
