@@ -3,20 +3,23 @@
 {% block title %}Connexion{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/logins.css') }}">
 {% endblock %}
-
 
 {% block body %}
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h2>SIGN IN</h2>
+                <img src= "{{ asset('image/logo-bfm.png') }}" />
             </div>
-
+            <div class="error-message">
+                
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">Matricule ou mot de passe incorrect</div>
             {% endif %}
+
+            </div>
+           
 
             <form method="post" action="{{ path('app_login') }}" class="login-form">
                 <div class="form-group">

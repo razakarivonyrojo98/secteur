@@ -16,6 +16,15 @@ class FonctionValideRepository extends ServiceEntityRepository
         parent::__construct($registry, FonctionValide::class);
     }
 
+    public function findAllNonDeleted(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return FonctionValide[] Returns an array of FonctionValide objects
     //     */

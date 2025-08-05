@@ -123,3 +123,13 @@ document.addEventListener('DOMContentLoaded', function () {
             inputWrapper.classList.add('d-none');
         }
     });
+
+    // Tooltip pour les actions de la table
+document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
+

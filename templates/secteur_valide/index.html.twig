@@ -3,113 +3,7 @@
 {% block title %}SecteurValide index{% endblock %}
 
 {% block stylesheets %}
-<style>
-.entete{
-    padding: 20px;
-    margin-left: 15%;
-    padding-top: 40px;
-}
-.add{
-    background-color: #2c5eaa;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 16px;
-    text-decoration: none;
-    height: 40px;
-    margin-left: 12px;
-}
-.heading {
-    display: flex;
-    background-color: #232f3e;
-    box-shadow: 0px 1px 2px #232f3e;
-
-}
-h1 {
-    color: coral;
-    font-weight: bold; 
-    background: transparent;
-    padding: 7px;
-    
-}
-.outer-wrapper {
-    margin: 10px;
-    margin-left: 15px;
-    margin-right: 10px;
-    border-radius: 4px;
-    box-shadow: 0px 0px 3px #9e9d9d;
-    width: 80vw !important;
-     justify-content: center;  /* Centrage horizontal */
-    align-items: center;      /* Centrage vertical */
-    
-}
-.table-wrapper {
-    overflow-y: scroll;
-    overflow-x: scroll;
-    height: fit-content;
-    margin: 15px;
-    padding-bottom: 20px;    
-}
-
-table {   
-    min-width: max-content;    
-    border-collapse: separate;
-    border-spacing: 0px;  
-    font-size: 13px;
-    text-align: center;
-}
-
-
-table th{
-    position: sticky; 
-    top: 0px;  
-    background-color: #b6b8bbff;
-    color: rgb(12, 12, 11);  
-    text-align: center;
-    font-weight: normal;
-
-} 
-table th, table td {   
-    padding: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    
-}
-
-table td {
-    text-align: center; 
-    padding-left: 20px;
-    
-}
-
-th.sortable {
-    position: relative;
-    user-select: none;
-}
-
-th.sortable::after {
-    content: '';
-    position: absolute;
-    right: 8px;
-    font-size: 12px;
-}
-
-th.sortable.asc::after {
-    content: '▲';
-}
-
-th.sortable.desc::after {
-    content: '▼';
-}
-
-@media (max-width: 850px) {
-    .entete {
-        margin-left: 0;
-        margin-top: 20px;
-    }
-}
-
-</style>
+    <link rel="stylesheet" href="{{ asset('css/tableaux.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -168,8 +62,16 @@ th.sortable.desc::after {
         </thead>
         <tbody>
         {% for secteur_valide in secteur_valides %}
-            <tr>
-              
+            
+
+            <tr 
+                data-bs-toggle="tooltip"
+                data-bs-html="true"
+                title="
+                    Matricule : {{ app.user.matricule }}
+                    Créé le : {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
+                    Dernier modification le : {{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+            >
                 <td>{{ secteur_valide.annee }}</td>
                 <td>{{ secteur_valide.nummois }}</td>
                 <td>{{ secteur_valide.ensemble }}</td>

@@ -16,6 +16,16 @@ class SecteurValideRepository extends ServiceEntityRepository
         parent::__construct($registry, SecteurValide::class);
     }
 
+        public function findAllNonDeleted(): array
+        {
+            return $this->createQueryBuilder('o')
+                ->andWhere('o.deletedAt IS NULL')
+                ->getQuery()
+                ->getResult();
+        }
+        
+
+
     //    /**
     //     * @return SecteurValide[] Returns an array of SecteurValide objects
     //     */

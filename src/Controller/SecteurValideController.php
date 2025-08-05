@@ -18,7 +18,7 @@ final class SecteurValideController extends AbstractController
     public function index(SecteurValideRepository $secteurValideRepository): Response
     {
         return $this->render('secteur_valide/index.html.twig', [
-            'secteur_valides' => $secteurValideRepository->findAll(),
+            'secteur_valides' => $secteurValideRepository->findAllNonDeleted(),
         ]);
     }
 
@@ -68,14 +68,15 @@ final class SecteurValideController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_secteur_valide_delete', methods: ['POST'])]
-    public function delete(Request $request, SecteurValide $secteurValide, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$secteurValide->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($secteurValide);
-            $entityManager->flush();
+        #[Route('/{id}', name: 'app_secteur_valide_delete', methods: ['POST'])]
+        public function delete(Request $request, SecteurValide $secteurValide, EntityManagerInterface $entityManager): Response
+        {
+            if ($this->isCsrfTokenValid('delete'.$secteurValide->getId(), $request->getPayload()->getString('_token'))) {
+                $secteurValide->setDeletedAt(new \DateTimeImmutable()); // Marquer comme supprimé
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_secteur_valide_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('app_secteur_valide_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

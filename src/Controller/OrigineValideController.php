@@ -11,14 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
+
 #[Route('/origine/valide')]
 final class OrigineValideController extends AbstractController
 {
+
     #[Route(name: 'app_origine_valide_index', methods: ['GET'])]
     public function index(OrigineValideRepository $origineValideRepository): Response
     {
         return $this->render('origine_valide/index.html.twig', [
-            'origine_valides' => $origineValideRepository->findAll(),
+            'origine_valides' => $origineValideRepository->findAllNonDeleted(),
         ]);
     }
 
@@ -63,19 +66,20 @@ final class OrigineValideController extends AbstractController
         }
 
         return $this->render('origine_valide/edit.html.twig', [
-            'origine_valide' => $origineValide,
+            $origineValide->setUpdatedAt(new \DateTime()),
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_origine_valide_delete', methods: ['POST'])]
-    public function delete(Request $request, OrigineValide $origineValide, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$origineValide->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($origineValide);
-            $entityManager->flush();
+        #[Route('/{id}', name: 'app_origine_valide_delete', methods: ['POST'])]
+        public function delete(Request $request, OrigineValide $origineValide, EntityManagerInterface $entityManager): Response
+        {
+            if ($this->isCsrfTokenValid('delete'.$origineValide->getId(), $request->getPayload()->getString('_token'))) {
+                $origineValide->setDeletedAt(new \DateTimeImmutable()); // Marquer comme supprimé
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('app_origine_valide_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('app_origine_valide_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

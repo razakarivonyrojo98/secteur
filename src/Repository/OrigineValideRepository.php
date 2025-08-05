@@ -16,6 +16,15 @@ class OrigineValideRepository extends ServiceEntityRepository
         parent::__construct($registry, OrigineValide::class);
     }
 
+    public function findAllNonDeleted(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return OrigineValide[] Returns an array of OrigineValide objects
     //     */
