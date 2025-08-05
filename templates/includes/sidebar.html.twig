@@ -1,185 +1,227 @@
 {% block stylesheets %}
 <style>
-
-.sidebar {
-    width: 15%;
-    background: #1e1e2f;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transition: all 0.3s ease;
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 
-.sidebar .brand {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 40px;
+.wrapper .top_navbar{
+  width: calc(100% - 20px);
+  height: 60px;
+  display: flex;
+  position: fixed;
+}
+.wrapper .top_navbar .hamburger{
+  width: 50px;
+  height: 100%;
+  background: #2e4ead;
+  padding: 10px 10px;
+  border-top-left-radius: 10px;
+  cursor: pointer;
+}
+.wrapper .top_navbar .hamburger div{
+  width: 30px;
+  height: 5px;
+  background: #92a6e2;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+.wrapper .top_navbar .top_menu{
+  width: calc(100% - 70px);
+  height: 100%;
+  background: #fff;
+  border-top-right-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+.wrapper .top_navbar .top_menu .logo{
+  color: #2e4ead;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.wrapper .top_navbar .top_menu ul{
+  display: flex;
+}
+.wrapper .top_navbar .top_menu ul li a{
+  display: block;
+  margin: 0 10px;
+  width: 35px;
+  height: 35px;
+  line-height: none;
+  text-align: center;
+  border: 2px solid #2e4ead;
+  border-radius: 50%;
+  color: #2e4ead;
+  padding:5px;
+}
+.wrapper .top_navbar .top_menu ul li a:hover{
+  background: #4360b5;
+  color: #fff;
+}
+.wrapper .top_navbar .top_menu ul li a:hover i{
+  color: #fff;
 }
 
-.sidebar .menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex: 1;
+.wrapper .sidebar{
+  position: fixed;
+  top: 70px;
+  background: #2e4ead;
+  width: 200px;
+  height: calc(100% - 80px);
+  border-bottom-left-radius: 20px;
+  transition: all 0.3s ease;
 }
 
-.sidebar .menu li {
-    margin-bottom: 20px;
-   
+.wrapper .sidebar ul{
+  padding: 0;
+  margin: 0;
 }
 
-.sidebar .menu a {
+.wrapper .sidebar ul li a{
+    display: block;
+    padding: 15px;
+    color: #fff;
+    position: relative;
+    margin-bottom: 1px;
+    color: #92a6e2;
+    white-space: nowrap;
     text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 6px;
-    transition: background 0.3s;
 }
 
-.sidebar .menu a i {
-    margin-right: 10px;
+.wrapper .sidebar ul li a:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #a0a2a7ff;
+  display: none;
+}
+.wrapper .sidebar ul li a span.icon{
+  margin-right: 10px;
+  display: inline-block;
+}
+.wrapper .sidebar ul li a span.title{
+  display: inline-block;
 }
 
-.sidebar .menu a:hover {
-    background: #b5b5b9ff;
-    cursor: pointer;
-    color: #1e1e2f
+.wrapper .sidebar ul li a:hover,
+.wrapper .sidebar ul li a.active{
+  background: #4360b5;
+  color: #fff;
+}
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+  display: block;
 }
 
-.sidebar .menu .logout a {
-    color: #f55;
-    font-weight: bold;
-    text-wrap:wrap;
-
+.wrapper .main_container{
+  width: (100% - 200px);
+  margin-top: 70px;
+  margin-left: 200px;
+  padding: 15px;
+  transition: all 0.3s ease;
 }
 
-.main-content {
-    margin-left: 250px;
-    padding: 30px;
-    flex: 1;
-    background-color: #f4f4f4;
-    min-height: 100vh;
+.wrapper .main_container .item{
+  background: #fff;
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 22px;
 }
 
-.menu2 i {
-    display:none;
+.wrapper.collapse .sidebar{
+  width: 70px;
 }
 
-.sidebar.collapsed {
-    width: 70px;
-    padding: 20px 10px;
+.wrapper.collapse .sidebar ul li a{
+  text-align: center; 
 }
 
-.sidebar.collapsed .menu a {
-    justify-content: center;
-    font-size: 20px;
-    padding: 10px;
+.wrapper.collapse .sidebar ul li a span.icon{
+  margin: 0;
 }
 
-.sidebar.collapsed .menu a span {
-    display: none;
+.wrapper.collapse .sidebar ul li a span.title{
+  display: none;
 }
 
-.sidebar .menu a span {
-    margin-left: 10px;
+.wrapper.collapse .main_container{
+  width: (100% - 70px);
+  margin-left: 70px;
 }
 
-/* Pour éviter le saut du contenu */
-.main-content.collapsed {
-    margin-left: 70px;
-}
-
-.sidebar .menu a.active {
-    background-color: #ffffff;
-    color: #1e1e2f;
-    font-weight: bold;
-}
-
-/* Responsive */
-@media (max-width: 1100px) {
-    .menu2 i {
-        top: 20px;
-        left: 20px;
-        font-size: 30px;
-        color: #1e1e2f;
-        display:block;
-        position:absolute;
-    }
-
-}
 </style>
 {% endblock %}
 
+<div class="wrapper">
+    <div class="top_navbar">
+        <div class="hamburger">
+            <div class="one"></div>
+            <div class="two"></div>
+            <div class="three"></div>
+        </div>
+        <div class="top_menu">
+            <div class="logo">logo</div>
+            <ul>
+                <li><a href="#">
+                <i class="fas fa-search"></i></a></li>
+                <li><a href="#">
+                <i class="fas fa-bell"></i>
+                </a></li>
+                <li><a href="#">
+                <i class="fas fa-user"></i>
+                </a></li>
+            </ul>
+        </div>
+    </div> 
 
-<div class="layout">
-    <!-- Sidebar -->
-    <nav class="sidebar">
-        <div class="brand">Application</div>
-        <ul class="menu">
-           <li>
-                <a href="{{ path('app_secteur_valide_index') }}"
-                class="{{ app.request.attributes.get('_route') == 'app_secteur_valide_index' ? 'active' : '' }}">
-                    <i class="bi bi-diagram-3"></i><span> Secteurs</span>
-                </a>
-            </li>
+    <div class="sidebar">
+        <!-- Sidebar -->
+        <nav >
+           
+            <ul class="menu">
+                <li>
+                    <a href="{{ path('app_secteur_valide_index') }}"
+                    class="{{ app.request.attributes.get('_route') == 'app_secteur_valide_index' ? 'active' : '' }}">
+                        <i class="bi bi-diagram-3"></i><span> Secteurs</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="{{ path('app_fonction_valide_index') }}"
-                class="{{ app.request.attributes.get('_route') == 'app_fonction_valide_index' ? 'active' : '' }}">
-                    <i class="bi bi-person-gear"></i><span> Fonctions</span>
-                </a>
-            </li>
+                <li>
+                    <a href="{{ path('app_fonction_valide_index') }}"
+                    class="{{ app.request.attributes.get('_route') == 'app_fonction_valide_index' ? 'active' : '' }}">
+                        <i class="bi bi-person-gear"></i><span> Fonctions</span>
+                    </a>
+                </li>
 
-            <li>
-                <a href="{{ path('app_origine_valide_index') }}"
-                class="{{ app.request.attributes.get('_route') == 'app_origine_valide_index' ? 'active' : '' }}">
-                    <i class="bi bi-globe"></i><span> Origines</span>
-                </a>
-            </li>
+                <li>
+                    <a href="{{ path('app_origine_valide_index') }}"
+                    class="{{ app.request.attributes.get('_route') == 'app_origine_valide_index' ? 'active' : '' }}">
+                        <i class="bi bi-globe"></i><span> Origines</span>
+                    </a>
+                </li>
 
-            <li class="logout"><a href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i><span> Déconnexion</span></a></li>
-        </ul>
+                <li class="logout"><a href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i><span> Déconnexion</span></a></li>
+            </ul>
 
-    </nav>
-    <div class="menu2">
-    <i class="bi bi-list"></i>
+        </nav>
     </div>
 
 </div>
 
 {% block script %}
 <script>
-    const iMenu = document.querySelector(".bi-list");
-    const sidebar = document.querySelector(".sidebar");
-    const secteur = document.querySelector(".entete");
 
-    iMenu.addEventListener("click", () => {
-        const sidebarIsVisible = sidebar.classList.toggle("display-sidebar");
-
-        if (sidebarIsVisible) {
-            // Si affiché
-            iMenu.style.position = "relative";
-            iMenu.style.left = "20%";
-            iMenu.style.zIndex = "100";
-            iMenu.style.color = "white";
-            secteur.style.marginLeft = "25%";
-        } else {
-            // Si masqué
-            iMenu.style.position = "";
-            iMenu.style.left = "";
-            iMenu.style.zIndex = "";
-            iMenu.style.color = "";
-            secteur.style.marginLeft = "";
-        }
-    });
 </script>
 {% endblock %}
 

@@ -4,9 +4,7 @@ controllers:
         namespace: App\Controller
     type: attribute
     
-secteur:
-  path: /secteur
-  controller: App\Controller\SecteurController::index
+
 
 fonction:
   path: /fonction

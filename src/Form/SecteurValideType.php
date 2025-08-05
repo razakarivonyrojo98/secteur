@@ -8,11 +8,62 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SecteurValideType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $anneeField = function (string $label) {
+            return [
+                'label' => $label,
+                    'attr' => [
+                        'min' => 1900,
+                        'max' => 2100,
+                        'step' => 1,
+                        'class' => 'numeric-field'
+                    ],
+                    'constraints' => [
+                        new Assert\NotBlank(),
+                        new Assert\Range([
+                            'min' => 1900,
+                            'max' => 2100,
+                            'notInRangeMessage' => 'L\'année doit être comprise entre {{ min }} et {{ max }}.'
+                        ]),
+                        new Assert\Type(['type' => 'integer'])
+                    ]
+            ];
+        };
+
+        $moisField = function (string $label) {
+            return [
+                'label' => $label,
+                'choices' => [
+                    'Janvier' => 1,
+                    'Février' => 2,
+                    'Mars' => 3,
+                    'Avril' => 4,
+                    'Mai' => 5,
+                    'Juin' => 6,
+                    'Juillet' => 7,
+                    'Août' => 8,
+                    'Septembre' => 9,
+                    'Octobre' => 10,
+                    'Novembre' => 11,
+                    'Décembre' => 12,
+                ],
+                'placeholder' => 'Sélectionnez un mois',
+                'attr' => [
+                    'class' => 'form-select'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ]
+            ];
+        };
+
+
         $numberField = function (string $label) {
             return [
                 'label' => $label,
@@ -31,8 +82,8 @@ class SecteurValideType extends AbstractType
         };
 
         $builder
-            ->add('annee', NumberType::class, $numberField('Année'))
-            ->add('nummois', NumberType::class, $numberField('Numéro du mois'))
+            ->add('annee', IntegerType::class, $anneeField('Année'))
+            ->add('nummois', ChoiceType::class, $moisField('Numéro du mois'))
             ->add('ensemble', NumberType::class, $numberField('Valeur Ensemble'))
             ->add('prodvivr_n_t', NumberType::class, $numberField('Produits vivriers non transformés'))
             ->add('prodvivr_t_n_riz', NumberType::class, $numberField('Produits vivriers transformés (hors riz)'))

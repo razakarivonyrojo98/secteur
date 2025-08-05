@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class OrigineValideType extends AbstractType
@@ -35,7 +36,34 @@ class OrigineValideType extends AbstractType
                         new Assert\Type(['type' => 'integer'])
                     ]
             ];
+            };
+        $moisField = function (string $label) {
+            return [
+                'label' => $label,
+                'choices' => [
+                    'Janvier' => 1,
+                    'Février' => 2,
+                    'Mars' => 3,
+                    'Avril' => 4,
+                    'Mai' => 5,
+                    'Juin' => 6,
+                    'Juillet' => 7,
+                    'Août' => 8,
+                    'Septembre' => 9,
+                    'Octobre' => 10,
+                    'Novembre' => 11,
+                    'Décembre' => 12,
+                ],
+                'placeholder' => 'Sélectionnez un mois',
+                'attr' => [
+                    'class' => 'form-select'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ]
+            ];
         };
+
 
         $numberField = function (string $label) {
             return [
@@ -56,7 +84,7 @@ class OrigineValideType extends AbstractType
 
         $builder
             ->add('annee', IntegerType::class, $anneeField('Année'))
-            ->add('nummois', NumberType::class, $numberField('Numéro du mois'))
+            ->add('nummois', ChoiceType::class, $moisField('Numéro du mois'))
             ->add('ensemble', NumberType::class, $numberField('Valeur totale'))
             ->add('prodlocal', NumberType::class, $numberField('Production locale'))
             ->add('prodsemimp', NumberType::class, $numberField('Production semi-importée'))
