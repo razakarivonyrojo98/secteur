@@ -132,3 +132,83 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//Pagination
+document.addEventListener('DOMContentLoaded', function () {
+    const table = document.getElementById('sortableTable');
+    if (!table) return;
+
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const rowsPerPage = 5;
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+    let currentPage = 1;
+
+    const paginationContainer = document.createElement('div');
+    paginationContainer.className = 'pagination mt-3 d-flex justify-content-center flex-wrap gap-1';
+
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Précédent';
+    prevButton.className = 'btn btn-sm btn-secondary';
+    prevButton.disabled = true;
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Suivant';
+    nextButton.className = 'btn btn-sm btn-secondary';
+
+    const pageButtons = [];
+
+    function showPage(page) {
+        currentPage = page;
+        rows.forEach((row, index) => {
+            row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+        });
+
+        pageButtons.forEach((btn, i) => {
+            btn.classList.toggle('active', i + 1 === page);
+        });
+
+        prevButton.disabled = page === 1;
+        nextButton.disabled = page === totalPages;
+    }
+
+    function createPagination() {
+        paginationContainer.appendChild(prevButton);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.className = 'btn btn-sm btn-outline-primary';
+            btn.addEventListener('click', () => showPage(i));
+            paginationContainer.appendChild(btn);
+            pageButtons.push(btn);
+        }
+
+        paginationContainer.appendChild(nextButton);
+
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) showPage(currentPage - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) showPage(currentPage + 1);
+        });
+
+       const wrapper = document.getElementById('pagination-wrapper');
+        if (wrapper) {
+            wrapper.innerHTML = ''; // vide au cas où
+            wrapper.appendChild(paginationContainer);
+        }
+
+            }
+
+        if (rows.length > rowsPerPage) {
+            createPagination();
+            showPage(1);
+
+            const wrapper = document.getElementById('pagination-wrapper');
+            if (wrapper) {
+                wrapper.innerHTML = '';
+                wrapper.appendChild(paginationContainer);
+            }
+        }
+        });
+

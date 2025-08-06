@@ -19,6 +19,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $matricule = null;
 
+    #[ORM\Column(length: 180)]
+    private ?string $nom = null;
+
     /**
      * @var list<string> The user roles
      */
@@ -44,6 +47,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMatricule(string $matricule): static
     {
         $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

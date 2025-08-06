@@ -4,18 +4,14 @@
 <div class="wrapper">
     <div class="top_navbar">
         <div class="hamburger">
-            <div class="one"></div>
-            <div class="two"></div>
-            <div class="three"></div>
         </div>
         <div class="top_menu">
             <div class="logo">Evolution des indices des prix a la consommation</div>
             <ul>
-              
+                {{app.user.nom }}
                 <li><a href="#">
                 <i class="fas fa-user"></i>
                 </a></li>
-                 {{app.user.matricule }}
             </ul>
         </div>
     </div> 
@@ -56,7 +52,23 @@
 
 {% block script %}
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function toggleSidebarOnResize() {
+      const wrapper = document.querySelector('.wrapper');
+      if (window.innerWidth <= 520) {
+        wrapper.classList.add('collapse');
+      } else {
+        wrapper.classList.remove('collapse');
+      }
+    }
 
+    // Appelle la fonction au chargement de la page
+    toggleSidebarOnResize();
+
+    // Appelle la fonction à chaque redimensionnement de la fenêtre
+    window.addEventListener('resize', toggleSidebarOnResize);
+  });
 </script>
 {% endblock %}
+
 

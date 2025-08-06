@@ -74,9 +74,10 @@
             <tr  data-bs-toggle="tooltip"
                     data-bs-html="true"
                     title="
-                        Matricule : {{ app.user.matricule }}
-                        Créé le : {{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
-                        Modifié le : {{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+                        
+                        Matricule : {{ app.user.matricule }} </br>
+                        Créé le : {{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>
+                        Modifié le : {{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }}"
             >
                 <td>{{ fonction_valide.annee }}</td>
                 <td>{{ fonction_valide.nummois }}</td>
@@ -123,8 +124,8 @@
     </div>
     </div>
     </div>
-
     </div>
+    <div id="pagination-wrapper" ></div>
 <script src="{{ asset('js/fonction_valide.js') }}"></script>
 
 {% endblock %}

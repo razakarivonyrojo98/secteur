@@ -83,6 +83,8 @@
   border-bottom-left-radius: 20px;
   transition: all 0.3s ease;
   padding-top: 20px;
+  z-index: 1000;
+  left: 0;
 }
 
 .wrapper .sidebar ul{
@@ -127,11 +129,12 @@
 .wrapper .sidebar ul li a:hover:before,
 .wrapper .sidebar ul li a.active:before{
   display: block;
+  
 }
 
 .wrapper .main_container{
-  margin-top: 70px;
-  margin-left: 200px;
+  margin-top: 50px;
+  margin-left: 190px;
   width: calc(100% - 200px);
   padding: 15px;
   transition: all 0.3s ease;

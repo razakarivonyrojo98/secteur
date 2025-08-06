@@ -54,8 +54,8 @@
                     data-bs-toggle="tooltip"
                     data-bs-html="true"
                     title="
-                        Matricule : {{ app.user.matricule }}
-                        Créé le : {{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
+                        Matricule : {{ app.user.matricule }}</br>
+                        Créé le : {{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}</br>
                         Modifié le : {{ origine_valide.updatedAt ? origine_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
                 >
                     <td>{{ origine_valide.annee }}</td>
@@ -92,10 +92,9 @@
 
     </table>
         </div>
+    </div> 
     </div>
-    
-    </div>
-
+<div id="pagination-wrapper" ></div>
 <script src="{{ asset('js/origine_valide.js') }}"></script>
 
 

@@ -38,7 +38,7 @@ class OrigineValide
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $deletedAt = null;
 
-#[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -46,13 +46,13 @@ class OrigineValide
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));;
     }
 
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('Indian/Antananarivo'));;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

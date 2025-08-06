@@ -68,8 +68,8 @@
                 data-bs-toggle="tooltip"
                 data-bs-html="true"
                 title="
-                    Matricule : {{ app.user.matricule }}
-                    Créé le : {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
+                    Matricule : {{ app.user.matricule }} </br>
+                    Créé le : {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} </br>
                     Dernier modification le : {{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
             >
                 <td>{{ secteur_valide.annee }}</td>
@@ -112,7 +112,7 @@
     </div>
     </div>
     </div>
-
+    <div id="pagination-wrapper"></div>
 <script src="{{ asset('js/secteur_valide.js') }}"></script>
 
 
