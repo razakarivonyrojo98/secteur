@@ -50,14 +50,13 @@
         </thead>
         <tbody>
             {% for origine_valide in origine_valides %}
-                <tr 
-                    data-bs-toggle="tooltip"
-                    data-bs-html="true"
-                    title="
-                        Matricule : {{ app.user.matricule }}</br>
-                        Créé le : {{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}</br>
-                        Modifié le : {{ origine_valide.updatedAt ? origine_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+                <tr class="modal-trigger"
+                data-matricule="{{ app.user.matricule }}"
+                data-created="{{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
+                data-updated="{{ origine_valide.updatedAt ? origine_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+                data-updatedby="{{ app.user.nom }}"
                 >
+
                     <td>{{ origine_valide.annee }}</td>
                     <td>{{ origine_valide.nummois }}</td>
                     <td>{{ origine_valide.ensemble }}</td>
@@ -65,6 +64,11 @@
                     <td>{{ origine_valide.prodsemimp }}</td>
                     <td>{{ origine_valide.prodimport }}</td>
                     <td>
+                        <a href="{{ path('app_origine_valide_show', {'id': origine_valide.id}) }}"
+                        class="btn btn-sm btn-outline-success"
+                        title="Voir">
+                            <i class="bi bi-eye-fill"></i>
+                        </a>
                         <a href="{{ path('app_origine_valide_edit', {'id': origine_valide.id}) }}"
                         class="btn btn-sm btn-outline-primary"
                         title="Modifier">
@@ -94,6 +98,19 @@
         </div>
     </div> 
     </div>
+
+<!-- Modal personnalisé -->
+<div id="customModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h5>Détails de l'enregistrement</h5>
+        <div id="modalDetails">
+            <!-- Contenu injecté dynamiquement -->
+        </div>
+    </div>
+</div>
+
+
 <div id="pagination-wrapper" ></div>
 <script src="{{ asset('js/origine_valide.js') }}"></script>
 

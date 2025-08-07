@@ -124,13 +124,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-// Tooltip pour les actions de la table
+// Modal pour les actions de la table
 document.addEventListener('DOMContentLoaded', function () {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-        new bootstrap.Tooltip(tooltipTriggerEl);
+    const modal = document.getElementById('customModal');
+    const modalContent = document.getElementById('modalDetails');
+    const closeModal = document.getElementById('closeModal');
+    // Quand on clique sur une ligne
+    document.querySelectorAll('.modal-trigger').forEach(row => {
+        row.addEventListener('click', () => {
+            const matricule = row.dataset.matricule;
+            const created = row.dataset.created;
+            const updated = row.dataset.updated;
+            const updatedBy = row.dataset.updatedby; 
+
+            modalContent.innerHTML = `
+                <p><strong>Matricule :</strong> ${matricule}</p>
+                <p><strong>Créé le :</strong> ${created}</p>
+                 <p><strong>Dernier modification le :</strong> ${updated} <strong>par</strong> ${updatedBy}</p>
+            `;
+            modal.style.display = 'flex';
+        });
+    });
+    // Fermer le modal
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    // Fermer en cliquant en dehors
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
     });
 });
+
 
 //Pagination
 document.addEventListener('DOMContentLoaded', function () {

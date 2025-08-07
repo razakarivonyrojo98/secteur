@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\SecteurValideHistorique;
 
 #[Route('/secteur/valide')]
 final class SecteurValideController extends AbstractController
@@ -56,15 +57,20 @@ final class SecteurValideController extends AbstractController
         $form = $this->createForm(SecteurValideType::class, $secteurValide);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+         if ($form->isSubmitted() && $form->isValid()) {
+        // Crée une nouvelle ligne d'historique
+        $historique = new SecteurValideHistorique();
+        $historique->setModifiePar($this->getUser()->getUserIdentifier());
+        $secteurValide->addHistorique($historique);
 
-            return $this->redirectToRoute('app_secteur_valide_index', [], Response::HTTP_SEE_OTHER);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_secteur_valide_index');
         }
 
         return $this->render('secteur_valide/edit.html.twig', [
-            'secteur_valide' => $secteurValide,
             'form' => $form,
+            'secteur_valide' => $secteurValide,
         ]);
     }
 

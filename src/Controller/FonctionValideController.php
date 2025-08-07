@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use App\Entity\FonctionValideHistorique;
+
 #[Route('/fonction/valide')]
 final class FonctionValideController extends AbstractController
 {
@@ -52,21 +54,26 @@ final class FonctionValideController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_fonction_valide_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FonctionValide $fonctionValide, EntityManagerInterface $entityManager): Response
-    {
+       {
         $form = $this->createForm(FonctionValideType::class, $fonctionValide);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+       if ($form->isSubmitted() && $form->isValid()) {
+        // Crée une nouvelle ligne d'historique
+        $historique = new FonctionValideHistorique();
+        $historique->setModifiePar($this->getUser()->getUserIdentifier());
+        $fonctionValide->addHistorique($historique);
 
-            return $this->redirectToRoute('app_fonction_valide_index');
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_fonction_valide_index');
         }
 
         return $this->render('fonction_valide/edit.html.twig', [
-            'fonction_valide' => $fonctionValide,
             'form' => $form,
+            'fonction_valide' => $fonctionValide,
         ]);
-    }
+        }
 
     #[Route('/{id}', name: 'app_fonction_valide_delete', methods: ['POST'])]
     public function delete(Request $request, FonctionValide $fonctionValide, EntityManagerInterface $entityManager): Response

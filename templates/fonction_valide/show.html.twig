@@ -2,81 +2,110 @@
 
 {% block title %}FonctionValide{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/views.css') }}">
+{% endblock %}
+
+
 {% block body %}
     <h1>FonctionValide</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ fonction_valide.id }}</td>
-            </tr>
-            <tr>
-                <th>Annee</th>
-                <td>{{ fonction_valide.annee }}</td>
-            </tr>
-            <tr>
-                <th>Nummois</th>
-                <td>{{ fonction_valide.nummois }}</td>
-            </tr>
-            <tr>
-                <th>Ensemble</th>
-                <td>{{ fonction_valide.ensemble }}</td>
-            </tr>
-            <tr>
-                <th>Prod_alim_bois_nalc</th>
-                <td>{{ fonction_valide.prodAlimBoisNalc }}</td>
-            </tr>
-            <tr>
-                <th>Tissu_vetement</th>
-                <td>{{ fonction_valide.tissuVetement }}</td>
-            </tr>
-            <tr>
-                <th>Logt_et_combust</th>
-                <td>{{ fonction_valide.logtEtCombust }}</td>
-            </tr>
-            <tr>
-                <th>Am_eqmena_entc_m</th>
-                <td>{{ fonction_valide.amEqmenaEntcM }}</td>
-            </tr>
-            <tr>
-                <th>Sante</th>
-                <td>{{ fonction_valide.sante }}</td>
-            </tr>
-            <tr>
-                <th>Transports</th>
-                <td>{{ fonction_valide.transports }}</td>
-            </tr>
-            <tr>
-                <th>Loisir_spect_cult</th>
-                <td>{{ fonction_valide.loisirSpectCult }}</td>
-            </tr>
-            <tr>
-                <th>Enseignement</th>
-                <td>{{ fonction_valide.enseignement }}</td>
-            </tr>
-            <tr>
-                <th>Hotel_cafe_rest</th>
-                <td>{{ fonction_valide.hotelCafeRest }}</td>
-            </tr>
-            <tr>
-                <th>Autres_bien_serv</th>
-                <td>{{ fonction_valide.autresBienServ }}</td>
-            </tr>
-            <tr>
-                <th>Bois_alc_tab</th>
-                <td>{{ fonction_valide.boisAlcTab }}</td>
-            </tr>
-            <tr>
-                <th>Communications</th>
-                <td>{{ fonction_valide.communications }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+<div class="info-box">
+    <div class="row">
+        <span class="label">Id</span>
+        <span class="value">{{ fonction_valide.id }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Année</span>
+        <span class="value">{{ fonction_valide.annee }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Nummois</span>
+        <span class="value">{{ fonction_valide.nummois }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Ensemble</span>
+        <span class="value">{{ fonction_valide.ensemble }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prod alim bois nalc</span>
+        <span class="value">{{ fonction_valide.prodAlimBoisNalc }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Tissu vêtement</span>
+        <span class="value">{{ fonction_valide.tissuVetement }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Logt et combust</span>
+        <span class="value">{{ fonction_valide.logtEtCombust }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Am eqmena entc m</span>
+        <span class="value">{{ fonction_valide.amEqmenaEntcM }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Santé</span>
+        <span class="value">{{ fonction_valide.sante }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Transports</span>
+        <span class="value">{{ fonction_valide.transports }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Loisir spect. cult.</span>
+        <span class="value">{{ fonction_valide.loisirSpectCult }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Enseignement</span>
+        <span class="value">{{ fonction_valide.enseignement }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Hotel café rest.</span>
+        <span class="value">{{ fonction_valide.hotelCafeRest }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Autres bien serv.</span>
+        <span class="value">{{ fonction_valide.autresBienServ }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Bois alc tab</span>
+        <span class="value">{{ fonction_valide.boisAlcTab }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Communications</span>
+        <span class="value">{{ fonction_valide.communications }}</span>
+    </div>
     <a href="{{ path('app_fonction_valide_index') }}">back to list</a>
 
     <a href="{{ path('app_fonction_valide_edit', {'id': fonction_valide.id}) }}">edit</a>
+</div>
+</br>
 
-    {{ include('fonction_valide/_delete_form.html.twig') }}
+<div class="historique">
+   <fieldset>
+       <legend>Date de creation</legend>
+       <ul>
+                Matricule : {{ app.user.matricule }} </br>
+                Créé le : {{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>       
+       </ul>
+   </fieldset>
+
+   <fieldset>
+       <legend>Historique des modifications</legend>
+       <ul>
+           {% for historique in fonction_valide.historiques %}
+               <li>
+                   Modifié le : {{ historique.dateModification|date('d/m/Y H:i') }}
+                   {% if historique.modifiePar %}
+                       par {{ historique.modifiePar }}
+                   {% endif %}
+               </li>
+           {% else %}
+               <li>Aucune modification enregistrée</li>
+           {% endfor %}
+       </ul>
+   </fieldset>
+</div>
+  
+   
 {% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
+use App\Entity\OrigineValideHistorique;
 
 #[Route('/origine/valide')]
 final class OrigineValideController extends AbstractController
@@ -59,16 +59,21 @@ final class OrigineValideController extends AbstractController
         $form = $this->createForm(OrigineValideType::class, $origineValide);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+       if ($form->isSubmitted() && $form->isValid()) {
+        // Crée une nouvelle ligne d'historique
+        $historique = new OrigineValideHistorique();
+        $historique->setModifiePar($this->getUser()->getUserIdentifier());
+        $origineValide->addHistorique($historique);
 
-            return $this->redirectToRoute('app_origine_valide_index', [], Response::HTTP_SEE_OTHER);
-        }
+        $entityManager->flush();
 
-        return $this->render('origine_valide/edit.html.twig', [
-            $origineValide->setUpdatedAt(new \DateTime()),
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_origine_valide_index');
+    }
+
+    return $this->render('origine_valide/edit.html.twig', [
+        'form' => $form,
+        'origine_valide' => $origineValide,
+    ]);
     }
 
         #[Route('/{id}', name: 'app_origine_valide_delete', methods: ['POST'])]

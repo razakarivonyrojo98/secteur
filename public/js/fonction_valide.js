@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //colonne select  
-
     document.getElementById('columnSelect').addEventListener('change', function () {
         const inputWrapper = document.getElementById('searchColumnWrapper');
         if (this.value) {
@@ -131,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         new bootstrap.Tooltip(tooltipTriggerEl);
     });
 });
+
 
 //Pagination
 document.addEventListener('DOMContentLoaded', function () {

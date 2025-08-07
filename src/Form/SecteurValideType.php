@@ -84,7 +84,7 @@ class SecteurValideType extends AbstractType
         $builder
             ->add('annee', IntegerType::class, $anneeField('Année'))
             ->add('nummois', ChoiceType::class, $moisField('Numéro du mois'))
-            ->add('ensemble', NumberType::class, $numberField('Valeur Ensemble'))
+            ->add('ensemble', NumberType::class, $numberField('Ensemble'))
             ->add('prodvivr_n_t', NumberType::class, $numberField('Produits vivriers non transformés'))
             ->add('prodvivr_t_n_riz', NumberType::class, $numberField('Produits vivriers transformés (hors riz)'))
             ->add('prodvivr_t_riz', NumberType::class, $numberField('Produits vivriers transformés (riz)'))

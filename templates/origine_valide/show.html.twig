@@ -2,45 +2,79 @@
 
 {% block title %}OrigineValide{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/views.css') }}">
+{% endblock %}
+
+
 {% block body %}
     <h1>OrigineValide</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ origine_valide.id }}</td>
-            </tr>
-            <tr>
-                <th>Annee</th>
-                <td>{{ origine_valide.annee }}</td>
-            </tr>
-            <tr>
-                <th>Nummois</th>
-                <td>{{ origine_valide.nummois }}</td>
-            </tr>
-            <tr>
-                <th>Ensemble</th>
-                <td>{{ origine_valide.ensemble }}</td>
-            </tr>
-            <tr>
-                <th>Prodlocal</th>
-                <td>{{ origine_valide.prodlocal }}</td>
-            </tr>
-            <tr>
-                <th>Prodsemimp</th>
-                <td>{{ origine_valide.prodsemimp }}</td>
-            </tr>
-            <tr>
-                <th>Prodimport</th>
-                <td>{{ origine_valide.prodimport }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="info-box">
+    <div class="row">
+        <span class="label">Id</span>
+        <span class="value">{{ origine_valide.id }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Année</span>
+        <span class="value">{{ origine_valide.annee }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Nummois</span>
+        <span class="value">{{ origine_valide.nummois }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Ensemble</span>
+        <span class="value">{{ origine_valide.ensemble }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodlocal</span>
+        <span class="value">{{ origine_valide.prodlocal }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodsemimp</span>
+        <span class="value">{{ origine_valide.prodsemimp }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodimport</span>
+        <span class="value">{{ origine_valide.prodimport }}</span>
+    </div>
 
-    <a href="{{ path('app_origine_valide_index') }}">back to list</a>
+    <a href="{{ path('app_origine_valide_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_origine_valide_edit', {'id': origine_valide.id}) }}">Modifier</a>
+</div>
 
+ <div class="actions">
+    <a href="{{ path('app_origine_valide_index') }}">retour</a>
     <a href="{{ path('app_origine_valide_edit', {'id': origine_valide.id}) }}">edit</a>
 
-    {{ include('origine_valide/_delete_form.html.twig') }}
+</div>
+</br>
+
+<div class="historique">
+   <fieldset>
+       <legend>Date de creation</legend>
+       <ul>
+                Matricule : {{ app.user.matricule }} </br>
+                Créé le : {{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>       
+       </ul>
+   </fieldset>
+
+   <fieldset>
+       <legend>Historique des modifications</legend>
+       <ul>
+           {% for historique in origine_valide.historiques %}
+               <li>
+                   Modifié le : {{ historique.dateModification|date('d/m/Y H:i') }}
+                   {% if historique.modifiePar %}
+                       par {{ historique.modifiePar }}
+                   {% endif %}
+               </li>
+           {% else %}
+               <li>Aucune modification enregistrée</li>
+           {% endfor %}
+       </ul>
+   </fieldset>
+</div>
+
 {% endblock %}

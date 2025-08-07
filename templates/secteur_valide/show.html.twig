@@ -2,65 +2,93 @@
 
 {% block title %}SecteurValide{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/views.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>SecteurValide</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ secteur_valide.id }}</td>
-            </tr>
-            <tr>
-                <th>Annee</th>
-                <td>{{ secteur_valide.annee }}</td>
-            </tr>
-            <tr>
-                <th>Nummois</th>
-                <td>{{ secteur_valide.nummois }}</td>
-            </tr>
-            <tr>
-                <th>Ensemble</th>
-                <td>{{ secteur_valide.ensemble }}</td>
-            </tr>
-            <tr>
-                <th>Prodvivr_n_t</th>
-                <td>{{ secteur_valide.prodvivrNT }}</td>
-            </tr>
-            <tr>
-                <th>Prodvivr_t_n_riz</th>
-                <td>{{ secteur_valide.prodvivrTNRiz }}</td>
-            </tr>
-            <tr>
-                <th>Prodvivr_t_riz</th>
-                <td>{{ secteur_valide.prodvivrTRiz }}</td>
-            </tr>
-            <tr>
-                <th>Prodmanufind</th>
-                <td>{{ secteur_valide.prodmanufind }}</td>
-            </tr>
-            <tr>
-                <th>Prodmanufart</th>
-                <td>{{ secteur_valide.prodmanufart }}</td>
-            </tr>
-            <tr>
-                <th>Servpubl</th>
-                <td>{{ secteur_valide.servpubl }}</td>
-            </tr>
-            <tr>
-                <th>Servpriv</th>
-                <td>{{ secteur_valide.servpriv }}</td>
-            </tr>
-            <tr>
-                <th>Ppn</th>
-                <td>{{ secteur_valide.ppn }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_secteur_valide_index') }}">back to list</a>
+           <div class="info-box">
+    <div class="row">
+        <span class="label">Id</span>
+        <span class="value">{{ secteur_valide.id }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Année</span>
+        <span class="value">{{ secteur_valide.annee }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Nummois</span>
+        <span class="value">{{ secteur_valide.nummois }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Ensemble</span>
+        <span class="value">{{ secteur_valide.ensemble }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodvivr_n_t</span>
+        <span class="value">{{ secteur_valide.prodvivrNT }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodvivr_t_n_riz</span>
+        <span class="value">{{ secteur_valide.prodvivrTNRiz }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodvivr_t_riz</span>
+        <span class="value">{{ secteur_valide.prodvivrTRiz }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodmanufind</span>
+        <span class="value">{{ secteur_valide.prodmanufind }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Prodmanufart</span>
+        <span class="value">{{ secteur_valide.prodmanufart }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Servpubl</span>
+        <span class="value">{{ secteur_valide.servpubl }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Servpriv</span>
+        <span class="value">{{ secteur_valide.servpriv }}</span>
+    </div>
+    <div class="row">
+        <span class="label">Ppn</span>
+        <span class="value">{{ secteur_valide.ppn }}</span>
+    </div>
 
-    <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}">edit</a>
+    <a href="{{ path('app_secteur_valide_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}">Modifier</a>
+</div>
 
-    {{ include('secteur_valide/_delete_form.html.twig') }}
+</br>
+<div class="historique">
+   <fieldset>
+       <legend>Date de creation</legend>
+       <ul>
+                Matricule : {{ app.user.matricule }} </br>
+                Créé le : {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>       
+       </ul>
+   </fieldset>
+
+   <fieldset>
+       <legend>Historique des modifications</legend>
+       <ul>
+           {% for historique in secteur_valide.historiques %}
+               <li>
+                   Modifié le : {{ historique.dateModification|date('d/m/Y H:i') }}
+                   {% if historique.modifiePar %}
+                       par {{ historique.modifiePar }}
+                   {% endif %}
+               </li>
+           {% else %}
+               <li>Aucune modification enregistrée</li>
+           {% endfor %}
+       </ul>
+   </fieldset>
+</div>
+
 {% endblock %}

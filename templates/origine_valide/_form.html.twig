@@ -8,6 +8,12 @@
     <div class="custom-card">
         <div class="custom-card-body">
             {{ form_start(form, {'attr': {'class': 'custom-form'}}) }}
+                        {# ✅ Affiche les erreurs globales ici #}
+                            {% if form.vars.errors|length > 0 %}
+                                <div class="form-global-errors">
+                                    {{ form_errors(form) }}
+                                </div>
+                            {% endif %}
 
             <div class="form-grid">
                 {% for field in form %}
@@ -25,7 +31,7 @@
                 <button type="submit" class="btn-primary">
                     {{ button_label|default('Ajouter') }}
                 </button>
-                <a href="{{ path('app_secteur_valide_index') }}" class="btn-secondary">
+                <a href="{{ path('app_origine_valide_index') }}" class="btn-secondary">
                     Annuler
                 </a>
             </div>

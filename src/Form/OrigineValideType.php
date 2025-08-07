@@ -85,7 +85,7 @@ class OrigineValideType extends AbstractType
         $builder
             ->add('annee', IntegerType::class, $anneeField('Année'))
             ->add('nummois', ChoiceType::class, $moisField('Numéro du mois'))
-            ->add('ensemble', NumberType::class, $numberField('Valeur totale'))
+            ->add('ensemble', NumberType::class, $numberField('Ensemble'))
             ->add('prodlocal', NumberType::class, $numberField('Production locale'))
             ->add('prodsemimp', NumberType::class, $numberField('Production semi-importée'))
             ->add('prodimport', NumberType::class, $numberField('Production importée'));

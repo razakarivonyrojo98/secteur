@@ -64,14 +64,13 @@
         {% for secteur_valide in secteur_valides %}
             
 
-            <tr 
-                data-bs-toggle="tooltip"
-                data-bs-html="true"
-                title="
-                    Matricule : {{ app.user.matricule }} </br>
-                    Créé le : {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} </br>
-                    Dernier modification le : {{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
-            >
+<tr class="modal-trigger"
+    data-matricule="{{ app.user.matricule }}"
+    data-created="{{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
+    data-updated="{{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+    data-updatedby="{{ app.user.nom }}"
+>
+
                 <td>{{ secteur_valide.annee }}</td>
                 <td>{{ secteur_valide.nummois }}</td>
                 <td>{{ secteur_valide.ensemble }}</td>
@@ -84,7 +83,11 @@
                 <td>{{ secteur_valide.servpriv }}</td>
                 <td>{{ secteur_valide.ppn }}</td>
                 <td>
-                    {#<a href="{{ path('app_secteur_valide_show', {'id': secteur_valide.id}) }}">show</a>#}
+                    <a href="{{ path('app_secteur_valide_show', {'id': secteur_valide.id}) }}"
+                    class="btn btn-sm btn-outline-success"
+                    title="Voir">
+                        <i class="bi bi-eye-fill"></i>
+                    </a>
                     <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}"
                     class="btn btn-sm btn-outline-primary"
                     title="Modifier">
@@ -112,6 +115,17 @@
     </div>
     </div>
     </div>
+    <!-- Modal personnalisé -->
+<div id="customModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h5>Détails de l'enregistrement</h5>
+        <div id="modalDetails">
+            <!-- Contenu injecté dynamiquement -->
+        </div>
+    </div>
+</div>
+
     <div id="pagination-wrapper"></div>
 <script src="{{ asset('js/secteur_valide.js') }}"></script>
 

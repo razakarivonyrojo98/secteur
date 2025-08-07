@@ -8,8 +8,19 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 #[ORM\Entity(repositoryClass: SecteurValideRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+
+#[UniqueEntity(
+    fields: ['annee', 'nummois'],
+    message: 'Ce libellé existent déjà.'
+)]
+
 class SecteurValide
 {
     #[ORM\Id]
@@ -59,10 +70,30 @@ class SecteurValide
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
-    public function __construct()
+    #[ORM\OneToMany(mappedBy: 'secteurValide', targetEntity: SecteurValideHistorique::class, cascade: ['persist', 'remove'])]
+    private Collection $historiques;
+
+   public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->historiques = new ArrayCollection();
     }
+
+    public function getHistoriques(): Collection
+    {
+        return $this->historiques;
+    }
+
+    public function addHistorique(SecteurValideHistorique $historique): self
+    {
+        if (!$this->historiques->contains($historique)) {
+            $this->historiques[] = $historique;
+            $historique->setSecteurValide($this);
+        }
+
+        return $this;
+    }
+
 
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void

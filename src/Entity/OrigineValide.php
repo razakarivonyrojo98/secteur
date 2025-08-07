@@ -6,10 +6,19 @@ use App\Repository\OrigineValideRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use DateTimeInterface;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: OrigineValideRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+
+#[UniqueEntity(
+    fields: ['annee', 'nummois'],
+    message: 'Ce libellé existent déjà.'
+)]
 class OrigineValide
 {
     #[ORM\Id]
@@ -44,11 +53,32 @@ class OrigineValide
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'origineValide', targetEntity: OrigineValideHistorique::class, cascade: ['persist', 'remove'])]
+    private Collection $historiques;
+
+
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));;
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->historiques = new ArrayCollection();
     }
 
+    public function getHistoriques(): Collection
+    {
+        return $this->historiques;
+    }
+
+    public function addHistorique(OrigineValideHistorique $historique): self
+    {
+        if (!$this->historiques->contains($historique)) {
+            $this->historiques[] = $historique;
+            $historique->setOrigineValide($this);
+        }
+
+        return $this;
+    }
+
+    
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
