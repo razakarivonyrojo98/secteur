@@ -4,7 +4,7 @@
 
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/tableaux.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tableau.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -70,13 +70,11 @@
         </thead>
         <tbody>
         {% for fonction_valide in fonction_valides %}
-            <tr 
-                data-bs-toggle="tooltip"
-                data-bs-html="true"
-                title="
-                    Matricule : {{ app.user.matricule }} </br>
-                    Créé le : {{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} </br>
-                    Dernier modification le : {{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+            <tr class="modal-trigger"
+                data-matricule="{{ app.user.matricule }}"
+                data-created="{{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
+                data-updated="{{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
+                data-updatedby="{{ app.user.nom }}"
             >
                 <td>{{ fonction_valide.annee }}</td>
                 <td>{{ fonction_valide.nummois }}</td>
@@ -124,6 +122,16 @@
     </table>
     </div>
     </div>
+                <!-- Modal personnalisé -->
+            <div id="customModal" class="modal-overlay">
+                <div class="modal-content">
+                    <span class="close-button" id="closeModal">&times;</span>
+                    <h5>Détails de l'enregistrement</h5>
+                    <div id="modalDetails">
+                        <!-- Contenu injecté dynamiquement -->
+                    </div>
+                </div>
+            </div>
     </div>
 
     <div id="pagination-wrapper" ></div>

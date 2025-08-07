@@ -3,7 +3,7 @@
 {% block title %}OrigineValide index{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/tableaux.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tableau.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -102,8 +102,11 @@
 <!-- Modal personnalisé -->
 <div id="customModal" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-button" id="closeModal">&times;</span>
-        <h5>Détails de l'enregistrement</h5>
+        <div class="modal-header">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h5>Détails de l'enregistrement</h5>       
+        </div>
+
         <div id="modalDetails">
             <!-- Contenu injecté dynamiquement -->
         </div>
