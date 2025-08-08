@@ -128,29 +128,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('customModal');
     const modalContent = document.getElementById('modalDetails');
     const closeModal = document.getElementById('closeModal');
-    // Quand on clique sur une ligne
-    document.querySelectorAll('.modal-trigger').forEach(row => {
-        row.addEventListener('click', () => {
+
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    document.querySelectorAll('.modal-trigger').forEach(cell => {
+        cell.addEventListener('click', function () {
+            const row = cell.parentElement;
+
             const matricule = row.dataset.matricule;
             const created = row.dataset.created;
             const updated = row.dataset.updated;
-            const updatedBy = row.dataset.updatedby; 
+            const updatedBy = row.dataset.updatedby;
 
             modalContent.innerHTML = `
                 <p><strong>Matricule :</strong> ${matricule}</p>
                 <p><strong>Créé le :</strong> ${created}</p>
-                 <p><strong>Dernier modification le :</strong> ${updated} <strong>par</strong> ${updatedBy}</p>
+                <p><strong>Dernier modification le :</strong> ${updated}
+                <strong>Modifié par :</strong> ${updatedBy}</p>
             `;
-            modal.style.display = 'flex';
+
+            modal.style.display = 'block';
         });
     });
-    // Fermer le modal
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-    // Fermer en cliquant en dehors
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
             modal.style.display = 'none';
         }
     });

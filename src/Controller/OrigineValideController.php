@@ -68,13 +68,13 @@ final class OrigineValideController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_origine_valide_index');
-    }
+        }
 
-    return $this->render('origine_valide/edit.html.twig', [
-        'form' => $form,
-        'origine_valide' => $origineValide,
-    ]);
-    }
+        return $this->render('origine_valide/edit.html.twig', [
+            'form' => $form,
+            'origine_valide' => $origineValide,
+        ]);
+        }
 
         #[Route('/{id}', name: 'app_origine_valide_delete', methods: ['POST'])]
         public function delete(Request $request, OrigineValide $origineValide, EntityManagerInterface $entityManager): Response

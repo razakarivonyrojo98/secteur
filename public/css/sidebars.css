@@ -169,7 +169,7 @@
   margin-left: 70px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 908px) {
   .wrapper .sidebar {
     left: -200px;
   }
