@@ -1,3 +1,11 @@
+.info-titre{
+    text-align: center;
+    font-size: 20px;
+    color: #2e4ead;
+    padding-top: 50px;
+    margin-bottom: 20px;
+}
+
 .info-box {
     width: 70%;
     margin: auto;
