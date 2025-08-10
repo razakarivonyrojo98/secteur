@@ -55,8 +55,10 @@
    <fieldset>
        <legend>Date de creation</legend>
        <ul>
-                Matricule : {{ app.user.matricule }} </br>
-                Créé le : {{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>       
+            Créé le :
+            {{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
+            par {{ origine_valide.createdBy ?? 'Inconnu' }}
+
        </ul>
    </fieldset>
 

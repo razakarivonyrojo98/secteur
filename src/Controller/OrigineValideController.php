@@ -33,10 +33,11 @@ final class OrigineValideController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $origineValide->setCreatedBy($this->getUser()->getNom()); // Stocke le créateur
             $entityManager->persist($origineValide);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_origine_valide_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_origine_valide_index');
         }
 
         return $this->render('origine_valide/new.html.twig', [
@@ -62,7 +63,7 @@ final class OrigineValideController extends AbstractController
        if ($form->isSubmitted() && $form->isValid()) {
         // Crée une nouvelle ligne d'historique
         $historique = new OrigineValideHistorique();
-        $historique->setModifiePar($this->getUser()->getUserIdentifier());
+        $historique->setModifiePar($this->getUser()->getNom());
         $origineValide->addHistorique($historique);
 
         $entityManager->flush();

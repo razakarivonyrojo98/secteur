@@ -149,12 +149,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const created = row.dataset.created || 'N/A';
             const updated = row.dataset.updated || 'N/A';
             const updatedBy = row.dataset.updatedby || 'N/A';
+            const createdBy = row.dataset.createdby || 'Inconnu';
 
             modalContent.innerHTML = `
                 <p><strong>Matricule :</strong> ${matricule}</p>
-                <p><strong>Créé le :</strong> ${created}</p>
-                <p><strong>Modifié le :</strong> ${updated}</p>
-                <p><strong>Modifié par :</strong> ${updatedBy}</p>
+                <p><strong>Créé le :</strong> ${created} <strong>par :</strong> ${createdBy}</p>
+                <p><strong>Dernier modification le :</strong> ${updated}
+                <strong> par :</strong> ${updatedBy}</p>
             `;
 
             modal.style.display = 'block';
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!table) return;
 
     const rows = Array.from(table.querySelectorAll('tbody tr'));
-    const rowsPerPage = 5;
+    const rowsPerPage = 10;
     const totalPages = Math.ceil(rows.length / rowsPerPage);
     let currentPage = 1;
 

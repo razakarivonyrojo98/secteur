@@ -5,6 +5,8 @@
     padding: 0px;
     margin: 0px;
     font-size: 14px;
+    padding-top: 70px;
+    margin-left: 19%;
 }
 
 /* Card style */
@@ -15,11 +17,9 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     overflow: hidden;
 }
-
 .custom-card-body {
     padding: 30px;
 }
-
 /* Form grid */
 .form-grid {
     display: grid;
@@ -78,12 +78,36 @@
     opacity: 0.9;
 }
 
+/* Erreurs globales déjà gérées */
 .form-global-errors {
     background-color: #f8d7da;
-    color: #721c24;
+    color: red; /* forcé en rouge */
     padding: 10px;
     border-radius: 6px;
     margin-bottom: 20px;
     border: 1px solid #f5c6cb;
 }
+
+/* Erreurs au niveau d'un champ */
+.form-group ul {
+    margin: 5px 0 0;
+    padding-left: 15px;
+    list-style: none;
+}
+
+.form-group ul li {
+    color: red; /* texte rouge */
+    font-size: 13px;
+}
+
+.custom-card-body h4 {
+    font-size: 1.2rem;         /* taille plus grande */
+    font-weight: 600;          /* gras */
+    color: #5479b1;            /* couleur bleu */
+    margin-bottom: 20px;       /* espacement dessous */
+    text-align: center;        /* centré */
+
+    letter-spacing: 1.5px;     /* espacement entre lettres */
+}
+
 

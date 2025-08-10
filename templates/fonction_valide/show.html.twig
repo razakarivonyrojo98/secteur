@@ -75,20 +75,21 @@
         <span class="label">Communications</span>
         <span class="value">{{ fonction_valide.communications }}</span>
     </div>
-    <a href="{{ path('app_fonction_valide_index') }}">back to list</a>
+    <a href="{{ path('app_fonction_valide_index') }}">Retour a la liste</a>
 
-    <a href="{{ path('app_fonction_valide_edit', {'id': fonction_valide.id}) }}">edit</a>
+    <a href="{{ path('app_fonction_valide_edit', {'id': fonction_valide.id}) }}">Modifier</a>
 </div>
 </br>
 
 <div class="historique">
-   <fieldset>
-       <legend>Date de creation</legend>
-       <ul>
-                Matricule : {{ app.user.matricule }} </br>
-                Créé le : {{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>       
-       </ul>
-   </fieldset>
+<fieldset>
+    <legend>Date de création</legend>
+    <ul>
+            Créé le :
+            {{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
+            par {{ fonction_valide.createdBy ?? 'N/A' }}
+    </ul>
+</fieldset>
 
    <fieldset>
        <legend>Historique des modifications</legend>

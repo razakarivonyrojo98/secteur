@@ -31,13 +31,13 @@ final class FonctionValideController extends AbstractController
         $form = $this->createForm(FonctionValideType::class, $fonctionValide);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($fonctionValide);
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        $fonctionValide->setCreatedBy($this->getUser()->getNom()); // Stocke le créateur
+        $entityManager->persist($fonctionValide);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('app_fonction_valide_index');
-        }
-
+        return $this->redirectToRoute('app_fonction_valide_index');
+    }
         return $this->render('fonction_valide/new.html.twig', [
             'fonction_valide' => $fonctionValide,
             'form' => $form,
@@ -61,7 +61,7 @@ final class FonctionValideController extends AbstractController
        if ($form->isSubmitted() && $form->isValid()) {
         // Crée une nouvelle ligne d'historique
         $historique = new FonctionValideHistorique();
-        $historique->setModifiePar($this->getUser()->getUserIdentifier());
+        $historique->setModifiePar($this->getUser()->getNom());
         $fonctionValide->addHistorique($historique);
 
         $entityManager->flush();

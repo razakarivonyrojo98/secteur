@@ -47,15 +47,30 @@ class OrigineValide
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $deletedAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+private ?string $createdBy = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private ?DateTimeImmutable $createdAt = null;
+
     #[ORM\OneToMany(mappedBy: 'origineValide', targetEntity: OrigineValideHistorique::class, cascade: ['persist', 'remove'])]
     private Collection $historiques;
 
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
 
     public function __construct()
     {

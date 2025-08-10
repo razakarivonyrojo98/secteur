@@ -31,12 +31,12 @@ final class SecteurValideController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $secteurValide->setCreatedBy($this->getUser()->getNom()); // Stocke le créateur
             $entityManager->persist($secteurValide);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_secteur_valide_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_secteur_valide_index');
         }
-
         return $this->render('secteur_valide/new.html.twig', [
             'secteur_valide' => $secteurValide,
             'form' => $form,
@@ -60,7 +60,7 @@ final class SecteurValideController extends AbstractController
          if ($form->isSubmitted() && $form->isValid()) {
         // Crée une nouvelle ligne d'historique
         $historique = new SecteurValideHistorique();
-        $historique->setModifiePar($this->getUser()->getUserIdentifier());
+        $historique->setModifiePar($this->getUser()->getNom());
         $secteurValide->addHistorique($historique);
 
         $entityManager->flush();

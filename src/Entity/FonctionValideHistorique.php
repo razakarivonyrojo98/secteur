@@ -23,6 +23,7 @@ class FonctionValideHistorique
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $modifiePar = null;
 
+
     public function __construct()
     {
         $this->dateModification = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));

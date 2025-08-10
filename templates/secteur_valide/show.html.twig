@@ -70,8 +70,10 @@
        <legend>Date de creation</legend>
        <ul>
                 Matricule : {{ app.user.matricule }} </br>
-                Créé le : {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }} par {{ app.user.nom }} </br>       
-       </ul>
+              Créé le :
+                {{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}
+                par {{ secteur_valide.createdBy ?? 'Inconnu' }}
+
    </fieldset>
 
    <fieldset>

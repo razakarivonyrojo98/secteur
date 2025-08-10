@@ -2,8 +2,12 @@
 
 {% block title %}FonctionValide index{% endblock %}
 
-{% block stylesheets %}
-    <style>
+
+
+{% block body %}
+    <div class="entete">
+
+<style>
     .entete{ 
     padding: 20px;
     margin-left: 15%; 
@@ -80,6 +84,7 @@ table td {
     padding-left: 20px;
     
 }
+
 
 /* Appliquer une bordure de 5px au tooltip Bootstrap */
 .tooltip .tooltip-inner {
@@ -164,10 +169,7 @@ table td {
     }
 }
     </style>
-{% endblock %}
-
-{% block body %}
-    <div class="entete">
+    
         <div class="row my-4 px-3 align-items-center justify-content-between">
             <div class="col-md-3">
                 <label for="columnSelect" class="form-label mb-1">Choisir une colonne :</label>
@@ -206,8 +208,8 @@ table td {
 
     <div class="outer-wrapper">
         <div class="table-wrapper">
-            <table class="table" id="sortableTable">
-                <thead>
+            <table class="table  table-hover" id="sortableTable">
+                <thead class="table-secondary">
                     <tr>
                         <th>ANNEE</th>
                         <th>NUMMOIS</th>
@@ -233,6 +235,7 @@ table td {
                         <tr 
                             data-matricule="{{ app.user.matricule }}"
                             data-created="{{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i', 'Indian/Antananarivo') : 'N/A' }}"
+                            data-createdby="{{ fonction_valide.createdBy ?? 'N/A' }}"
                             data-updated="{{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i', 'Indian/Antananarivo') : 'N/A' }}"
                             data-updatedby="{{ dernier_historique.modifiePar ?? 'N/A' }}"
                         >
@@ -296,6 +299,6 @@ table td {
     </div>
 
     <div id="pagination-wrapper"></div>
-    <script src="{{ asset('js/origine_valide.js') }}"></script>
+    <script src="{{ asset('js/fonctions_valide.js') }}"></script>
 
 {% endblock %}

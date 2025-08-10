@@ -97,6 +97,20 @@ class FonctionValide
     #[ORM\OneToMany(mappedBy: 'fonctionValide', targetEntity: FonctionValideHistorique::class, cascade: ['persist', 'remove'])]
     private Collection $historiques;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $createdBy = null;
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));

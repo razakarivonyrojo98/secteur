@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 // Modal pour les actions de la table
+// Modal pour les actions de la table
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('customModal');
     const modalContent = document.getElementById('modalDetails');
@@ -133,33 +134,41 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'none';
     });
 
+    // Pour chaque cellule déclencheuse
     document.querySelectorAll('.modal-trigger').forEach(cell => {
         cell.addEventListener('click', function () {
-            const row = cell.parentElement;
+            const row = cell.closest('tr');
 
-            const matricule = row.dataset.matricule;
-            const created = row.dataset.created;
-            const updated = row.dataset.updated;
-            const updatedBy = row.dataset.updatedby;
+            // Vérifie si l'élément <tr> a bien les attributs data-*
+            if (!row || !row.dataset) {
+                console.error("Impossible de récupérer les données de la ligne");
+                return;
+            }
+
+            const matricule = row.dataset.matricule || 'N/A';
+            const created = row.dataset.created || 'N/A';
+            const updated = row.dataset.updated || 'N/A';
+            const updatedBy = row.dataset.updatedby || 'N/A';
+            const createdBy = row.dataset.createdby || 'N/A';
 
             modalContent.innerHTML = `
                 <p><strong>Matricule :</strong> ${matricule}</p>
-                <p><strong>Créé le :</strong> ${created}</p>
+                <p><strong>Créé le :</strong> ${created} <strong>par :</strong> ${createdBy}</p>
                 <p><strong>Dernier modification le :</strong> ${updated}
-                <strong>Modifié par :</strong> ${updatedBy}</p>
+                <strong> par :</strong> ${updatedBy}</p>
             `;
 
             modal.style.display = 'block';
         });
     });
 
+    // Fermeture si clic hors modal
     window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
     });
 });
-
 
 
 

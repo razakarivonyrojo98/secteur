@@ -70,6 +70,20 @@ class SecteurValide
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $createdBy = null;
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
     #[ORM\OneToMany(mappedBy: 'secteurValide', targetEntity: SecteurValideHistorique::class, cascade: ['persist', 'remove'])]
     private Collection $historiques;
 
