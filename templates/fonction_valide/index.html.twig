@@ -234,7 +234,7 @@ table td {
                         {% set dernier_historique = fonction_valide.historiques|last %}
                         <tr 
                             data-matricule="{{ app.user.matricule }}"
-                            data-created="{{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i', 'Indian/Antananarivo') : 'N/A' }}"
+                            data-created="{{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
                             data-createdby="{{ fonction_valide.createdBy ?? 'N/A' }}"
                             data-updated="{{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i', 'Indian/Antananarivo') : 'N/A' }}"
                             data-updatedby="{{ dernier_historique.modifiePar ?? 'N/A' }}"

@@ -65,7 +65,7 @@
             {% set dernier_historique = secteur_valide.historiques|last %}
             <tr 
                 data-matricule="{{ app.user.matricule }}"
-                data-created="{{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i', 'Indian/Antananarivo') : 'N/A' }}"
+                data-created="{{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
                 data-createdby="{{ secteur_valide.createdBy ?? 'N/A' }}"
                 data-updated="{{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i' , 'Indian/Antananarivo') : 'N/A' }}"
                 data-updatedby="{{ dernier_historique.modifiePar ?? 'N/A' }}">
