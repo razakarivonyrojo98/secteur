@@ -3,7 +3,7 @@
 {% block title %}SecteurValide{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/views.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/view.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -60,9 +60,12 @@
         <span class="value">{{ secteur_valide.ppn }}</span>
     </div>
 
-    <a href="{{ path('app_secteur_valide_index') }}">Retour à la liste</a>
-    <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}">Modifier</a>
 </div>
+    <div class="actions">
+        <a href="{{ path('app_secteur_valide_index') }}"> <i class="bi bi-arrow-return-left"></i>  Retour à la liste</a>
+        <a href="{{ path('app_secteur_valide_edit', {'id': secteur_valide.id}) }}"> <i class="bi bi-pencil-square"></i> Modifier</a>
+    </div>
+
 
 </br>
 <div class="historique">

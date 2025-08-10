@@ -1,6 +1,5 @@
 .info-box {
     width: 70%;
-
     margin: auto;
     padding: 20px;
     background: #f8f9fa;
@@ -63,5 +62,20 @@ legend {
     font-weight: bold;
     font-size: 16px;
     padding: 0 10px; /* Optionnel pour un peu d'air autour du texte */
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 17%;
+    width: 70%;
+    margin-top: 10px;
+}
+.actions a {
+    text-decoration: none;
+    color: #2e4ead;
+    padding: 07px 15px;
+    border: 1px solid #2e4ead;
+    border-radius: 5px;
 }
 
