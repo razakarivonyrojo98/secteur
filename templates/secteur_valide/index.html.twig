@@ -60,14 +60,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for secteur_valide in secteur_valides %}
+        {% for secteur_valide in secteur_valides |sort((a, b) => b.createdAt <=> a.createdAt)  %}
             
             {% set dernier_historique = secteur_valide.historiques|last %}
             <tr 
                 data-matricule="{{ app.user.matricule }}"
                 data-created="{{ secteur_valide.createdAt ? secteur_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
                 data-createdby="{{ secteur_valide.createdBy ?? 'N/A' }}"
-                data-updated="{{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i' , 'Indian/Antananarivo') : 'N/A' }}"
+                data-updated="{{ secteur_valide.updatedAt ? secteur_valide.updatedAt|date('d/m/Y H:i' ) : 'N/A' }}"
                 data-updatedby="{{ dernier_historique.modifiePar ?? 'N/A' }}">
 
                 <td class="modal-trigger">{{ secteur_valide.annee }}</td>
@@ -134,7 +134,7 @@
 
     <div id="pagination-wrapper"></div>
 
-    <script src="{{ asset('js/secteur_valide.js') }}"></script>
+    <script src="{{ asset('js/secteurs_valide.js') }}"></script>
 
 
 

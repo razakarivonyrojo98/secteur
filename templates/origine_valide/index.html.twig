@@ -49,13 +49,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for origine_valide in origine_valides %}
+            {% for origine_valide in origine_valides|sort((a, b) => b.createdAt <=> a.createdAt) %}
                 {% set dernier_historique = origine_valide.historiques|last %}
                 <tr 
                 data-matricule="{{ app.user.matricule }}"
                 data-created="{{ origine_valide.createdAt ? origine_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
                 data-createdby="{{ origine_valide.createdBy ?? 'Inconnu' }}"
-                data-updated="{{ origine_valide.updatedAt ? origine_valide.updatedAt|date('d/m/Y H:i' , 'Indian/Antananarivo') : 'N/A' }}"
+                data-updated="{{ origine_valide.updatedAt ? origine_valide.updatedAt|date('d/m/Y H:i' ) : 'N/A' }}"
                 data-updatedby="{{ dernier_historique.modifiePar ?? 'N/A' }}">
                 
                     <td class="modal-trigger">{{ origine_valide.annee }}</td>

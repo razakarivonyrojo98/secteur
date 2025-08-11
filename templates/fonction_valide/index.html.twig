@@ -230,7 +230,7 @@ table td {
                     </tr>
                 </thead>
                 <tbody>
-                    {% for fonction_valide in fonction_valides %}
+                    {% for fonction_valide in fonction_valides |sort((a, b) => b.createdAt <=> a.createdAt)  %}
                         {% set dernier_historique = fonction_valide.historiques|last %}
                         <tr 
                             data-matricule="{{ app.user.matricule }}"

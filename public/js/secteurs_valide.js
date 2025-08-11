@@ -150,11 +150,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const updatedBy = row.dataset.updatedby || 'N/A';
             const createdBy = row.dataset.createdby || 'N/A';
 
+            // On prépare la partie "Dernière modification" uniquement si updated et updatedBy sont valides
+            let updatedSection = '';
+            if (updated.trim() !== '' && updated.trim() !== 'N/A') {
+                updatedSection = `
+                    <p><strong>Dernière modification le :</strong> ${updated}
+                    <strong>par :</strong> ${updatedBy}</p>
+                `;
+            }
+
             modalContent.innerHTML = `
                 <p><strong>Matricule :</strong> ${matricule}</p>
                 <p><strong>Créé le :</strong> ${created} <strong>par :</strong> ${createdBy}</p>
-                <p><strong>Dernier modification le :</strong> ${updated}
-                <strong> par :</strong> ${updatedBy}</p>
+                ${updatedSection}
             `;
 
             modal.style.display = 'block';
