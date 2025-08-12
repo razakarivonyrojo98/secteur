@@ -17,15 +17,15 @@ class OrigineValideHistorique
     #[ORM\JoinColumn(nullable: false)]
     private ?OrigineValide $origineValide = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private ?\DateTimeImmutable $dateModification = null;
+    #[ORM\Column(type: 'string', length: 19)]
+    private ?string $dateModification = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $modifiePar = null;
 
     public function __construct()
     {
-        $this->dateModification = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->dateModification = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
     }
 
     public function getId(): ?int
@@ -46,10 +46,18 @@ class OrigineValideHistorique
 
     public function getDateModification(): ?\DateTimeImmutable
     {
-        return $this->dateModification;
+        if ($this->dateModification === null) {
+            return null;
+        }
+
+        if ($this->dateModification instanceof \DateTimeImmutable) {
+            return $this->dateModification;
+        }
+
+        return \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->dateModification);
     }
 
-    public function setDateModification(\DateTimeImmutable $dateModification): self
+    public function setDateModification(String $dateModification): self
     {
         $this->dateModification = $dateModification;
         return $this;
