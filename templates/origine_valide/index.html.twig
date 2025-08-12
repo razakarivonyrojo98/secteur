@@ -4,6 +4,14 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/tableau.css') }}">
+    <style>
+    #refreshTable {
+    transition: transform 0.3s ease;
+    }
+    #refreshTable:active {
+        transform: rotate(180deg);
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -27,7 +35,10 @@
                 <label for="searchInput" class="form-label mb-1">Rechercher :</label>
                 <input type="text" id="searchInput" class="form-control" placeholder="Entrez une valeur...">
             </div>
-                <div class="col-md-2 text-end">
+                <div class="col-md-2 text-end d-flex justify-content-end gap-2">
+                    <a class="btn btn-outline-secondary" id="refreshTable" title="Rafraîchir">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </a>
                     <a class="add btn btn-primary" href="{{ path('app_origine_valide_new') }}">
                         <i class="bi bi-plus-circle"></i> Ajouter
                     </a>
@@ -118,6 +129,17 @@
 <div id="pagination-wrapper" ></div>
 <script src="{{ asset('js/origines_valide.js') }}"></script>
 
+{% block javascripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const refreshBtn = document.getElementById("refreshTable");
 
+    refreshBtn.addEventListener("click", function () {
+        refreshBtn.classList.add("spin"); // Pour animation si tu veux
+        location.reload();
+    });
+});
+</script>
+{% endblock %}
     
 {% endblock %}
