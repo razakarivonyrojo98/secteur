@@ -9,10 +9,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_MATRICULE', fields: ['matricule'])]
+#[ORM\Table(name: '"user"')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
+    #[ORM\SequenceGenerator(sequenceName: 'seq_secteur_valide_id', allocationSize: 1)]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -108,6 +110,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->matricule;
     }
 
     #[\Deprecated]
