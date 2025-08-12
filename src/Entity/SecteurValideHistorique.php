@@ -17,8 +17,8 @@ class SecteurValideHistorique
     #[ORM\JoinColumn(nullable: false)]
     private ?SecteurValide $secteurValide = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private ?\DateTimeImmutable $dateModification = null;
+    #[ORM\Column(type: 'string', length: 19)]
+    private ?string $dateModification = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $modifiePar = null;
@@ -26,7 +26,7 @@ class SecteurValideHistorique
     
     public function __construct()
     {
-        $this->dateModification = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->dateModification = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
     }
 
     public function getId(): ?int
@@ -47,10 +47,10 @@ class SecteurValideHistorique
 
     public function getDateModification(): ?\DateTimeImmutable
     {
-        return $this->dateModification;
+        return $this->dateModification ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->dateModification) : null;
     }
 
-    public function setDateModification(\DateTimeImmutable $dateModification): self
+    public function setDateModification(string $dateModification): self
     {
         $this->dateModification = $dateModification;
         return $this;
