@@ -236,7 +236,7 @@ table td {
                             data-matricule="{{ app.user.matricule }}"
                             data-created="{{ fonction_valide.createdAt ? fonction_valide.createdAt|date('d/m/Y H:i') : 'N/A' }}"
                             data-createdby="{{ fonction_valide.createdBy ?? 'N/A' }}"
-                            data-updated="{{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i', 'Indian/Antananarivo') : 'N/A' }}"
+                            data-updated="{{ fonction_valide.updatedAt ? fonction_valide.updatedAt|date('d/m/Y H:i') : 'N/A' }}"
                             data-updatedby="{{ dernier_historique.modifiePar ?? 'N/A' }}"
                         >
                             <td class="modal-trigger">{{ fonction_valide.annee }}</td>
@@ -277,7 +277,7 @@ table td {
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="16">no records found</td>
+                            <td colspan="16">Liste vide</td>
                         </tr>
                     {% endfor %}
                 </tbody>
