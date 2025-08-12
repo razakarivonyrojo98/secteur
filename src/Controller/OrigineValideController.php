@@ -80,12 +80,14 @@ final class OrigineValideController extends AbstractController
         #[Route('/{id}', name: 'app_origine_valide_delete', methods: ['POST'])]
         public function delete(Request $request, OrigineValide $origineValide, EntityManagerInterface $entityManager): Response
         {
-            if ($this->isCsrfTokenValid('delete'.$origineValide->getId(), $request->getPayload()->getString('_token'))) {
-                $origineValide->setDeletedAt(new \DateTimeImmutable()); // Marquer comme supprimé
+            if ($this->isCsrfTokenValid('delete'.$origineValide->getId(), $request->request->get('_token'))) {
+                // Convertir la date actuelle en string format 'Y-m-d H:i:s'
+                $dateString = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
+                
+                $origineValide->setDeletedAt($dateString); // Marquer comme supprimé
                 $entityManager->flush();
             }
 
             return $this->redirectToRoute('app_origine_valide_index', [], Response::HTTP_SEE_OTHER);
         }
-
 }
