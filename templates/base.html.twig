@@ -267,13 +267,28 @@
             {% block body %}{% endblock %}
         </div>
     </div>
-	{#<script>
-		$(document).ready(function(){
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const listItems = document.querySelectorAll(".menu li");
+
+    listItems.forEach(function (item) {
+        item.addEventListener("click", function (e) {
+            e.preventDefault(); // Empêche le rechargement si lien
+            listItems.forEach(li => li.classList.remove("active")); // Retire l'actif
+            this.classList.add("active"); // Ajoute sur celui cliqué
+
+            location.reload()
+        });
+    });
+});
+		{#$(document).ready(function(){
 			$(".hamburger").click(function(){
 			   $(".wrapper").toggleClass("collapse");
 			});
-		});
-	</script>#}
+		});#}
+
+</script>
+
     </body>
 </html>
 
