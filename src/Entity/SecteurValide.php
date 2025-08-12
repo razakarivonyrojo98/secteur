@@ -61,14 +61,14 @@ class SecteurValide
     #[ORM\Column(length: 20)]
     private ?string $ppn = null;
 
-    #[ORM\Column(type: 'date', nullable: true)]
-        private ?\DateTimeInterface $deletedAt = null;
-    
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: 'string', length: 19, nullable: true)]
+    private ?string $deletedAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?DateTimeInterface $updatedAt = null;
+    #[ORM\Column(type: 'string', length: 19)]
+    private ?string $createdAt = null;
+
+    #[ORM\Column(type: 'string', length: 19, nullable: true)]
+    private ?string $updatedAt = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $createdBy = null;
@@ -89,7 +89,7 @@ class SecteurValide
 
    public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->createdAt = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
         $this->historiques = new ArrayCollection();
     }
 
@@ -112,48 +112,46 @@ class SecteurValide
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        return $this->createdAt ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->createdAt) : null;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updatedAt;
+        return $this->updatedAt ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->updatedAt) : null;
     }
 
-    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?string $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->deletedAt) : null;
+    }
 
+    public function setDeletedAt(?string $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+        return $this;
+    }
 
-        public function getDeletedAt(): ?\DateTimeInterface
-        {
-            return $this->deletedAt;
-        }
-
-        public function setDeletedAt(?\DateTimeInterface $deletedAt): self
-        {
-            $this->deletedAt = $deletedAt;
-            return $this;
-        }
-
-        public function isDeleted(): bool
-        {
-            return $this->deletedAt !== null;
-        }
+    public function isDeleted(): bool
+    {
+        return $this->deletedAt !== null;
+    }
 
 
     public function getId(): ?int
