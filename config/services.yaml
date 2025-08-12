@@ -20,5 +20,16 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Security\ActiveDirectoryService:
+        arguments:
+            $host: '%env(LDAP_HOST)%'
+            $port: '%env(int:LDAP_PORT)%'
+            $baseDn: '%env(LDAP_BASE_DN)%'
+
+    App\Security\ActiveDirectoryAuthenticator:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $router: '@router'
+            $adService: '@App\Security\ActiveDirectoryService'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
