@@ -118,32 +118,48 @@
 .wrapper .top_navbar .top_menu ul li a:hover i{
   color: #fff;
 }
-.wrapper .sidebar{
+.wrapper .sidebar {
   position: fixed; 
   background: #2e4ead;
   width: 200px;
-  height: calc(100% - 0px);
+  height: 100%; /* Plus propre */
   border-bottom-left-radius: 20px;
   transition: all 0.3s ease;
   padding-top: 20px;
   z-index: 1000;
   left: 0;
+
+  /* Ajout flex pour positionner le logout en bas */
+  display: flex;
+  flex-direction: column;
 }
 
-.wrapper .sidebar ul{
+.wrapper .sidebar ul {
   padding: 0;
   margin: 0;
+  list-style: none;
+  flex-grow: 1; /* Remplit l'espace vertical */
+  display: flex;
+  flex-direction: column;
 }
 
-.wrapper .sidebar ul li a{
-    display: block;
-    padding: 15px;
-    color: #fff;
-    position: relative;
-    margin-bottom: 1px;
-    color: #92a6e2;
-    white-space: nowrap;
-    text-decoration: none;
+.wrapper .sidebar ul li {
+  margin-bottom: 1px;
+}
+
+.wrapper .sidebar ul li a {
+  display: block;
+  padding: 15px;
+  color: #92a6e2; /* Couleur unique */
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+}
+
+.wrapper .sidebar ul li.logout {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
 }
 
 .wrapper .sidebar ul li a:before{
@@ -240,36 +256,45 @@
 }
 
 }
+}
+
+}
 </style>
     <div class="sidebar">
-        <!-- Sidebar -->
-        <nav > 
-            <ul class="menu">
-                <li>
-                    <a href="{{ path('app_secteur_valide_index') }}"
-                    class="{{ app.request.attributes.get('_route') == 'app_secteur_valide_index' ? 'active' : '' }}">
-                        <i class="bi bi-diagram-3"></i><span> Secteurs</span>
-                    </a>
-                </li>
+      <nav> 
+          <ul class="menu">
+              <li>
+                  <a href="{{ path('app_secteur_valide_index') }}"
+                  class="{{ app.request.attributes.get('_route') == 'app_secteur_valide_index' ? 'active' : '' }}">
+                      <i class="bi bi-diagram-3"></i><span> Secteurs</span>
+                  </a>
+              </li>
 
-                <li>
-                    <a href="{{ path('app_fonction_valide_index') }}"
-                    class="{{ app.request.attributes.get('_route') == 'app_fonction_valide_index' ? 'active' : '' }}">
-                        <i class="bi bi-person-gear"></i><span> Fonctions</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('app_origine_valide_index') }}"
-                    class="{{ app.request.attributes.get('_route') == 'app_origine_valide_index' ? 'active' : '' }}">
-                        <i class="bi bi-globe"></i><span> Origines</span>
-                    </a>
-                </li>
+              <li>
+                  <a href="{{ path('app_fonction_valide_index') }}"
+                  class="{{ app.request.attributes.get('_route') == 'app_fonction_valide_index' ? 'active' : '' }}">
+                      <i class="bi bi-person-gear"></i><span> Fonctions</span>
+                  </a>
+              </li>
 
-                <li class="logout"><a href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i><span> Déconnexion</span></a></li>
-            </ul>
+              <li>
+                  <a href="{{ path('app_origine_valide_index') }}"
+                  class="{{ app.request.attributes.get('_route') == 'app_origine_valide_index' ? 'active' : '' }}">
+                      <i class="bi bi-globe"></i><span> Origines</span>
+                  </a>
+              </li>
+          </ul>
 
-        </nav>
-    </div>
+          <!-- Bouton déconnexion séparé -->
+          <ul class="menu logout-menu">
+              <li class="logout">
+                  <a href="{{ path('app_logout') }}" id="logoutBtn">
+                      <i class="bi bi-box-arrow-right"></i><span> Déconnexion</span>
+                  </a>
+              </li>
+          </ul>
+      </nav>
+  </div>
     
 </div>
         {% endif %}
