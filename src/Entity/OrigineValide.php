@@ -44,18 +44,17 @@ class OrigineValide
     #[ORM\Column(length: 30)]
     private ?string $prodimport = null;
 
-    #[ORM\Column(type: 'date', nullable: true)]
-    private ?\DateTimeInterface $deletedAt = null;
-
+    #[ORM\Column(type: 'string', length: 19, nullable: true)]
+    private ?string $deletedAt = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-private ?string $createdBy = null;
+    private ?string $createdBy = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?DateTimeInterface $updatedAt = null;
+    #[ORM\Column(type: 'string', length: 19, nullable: true)]
+    private ?string $updatedAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: 'string', length: 19)]
+    private ?string $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'origineValide', targetEntity: OrigineValideHistorique::class, cascade: ['persist', 'remove'])]
     private Collection $historiques;
@@ -74,7 +73,7 @@ private ?string $createdBy = null;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->createdAt = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
         $this->historiques = new ArrayCollection();
     }
 
@@ -97,26 +96,33 @@ private ?string $createdBy = null;
     #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
-        $this->updatedAt = new \DateTime('now', new \DateTimeZone('Indian/Antananarivo'));;
+        $this->updatedAt = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
     }
+
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        if ($this->createdAt === null) {
+            return null;
+        }
+        return \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->createdAt);
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    public function setCreatedAt(string $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updatedAt;
+        if ($this->updatedAt === null) {
+            return null;
+        }
+        return \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->updatedAt);
     }
 
-    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?string $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -124,12 +130,15 @@ private ?string $createdBy = null;
 
 
 
-    public function getDeletedAt(): ?\DateTimeInterface
+    public function getDeletedAt(): ?\DateTimeImmutable
     {
-        return $this->deletedAt;
+        if ($this->deletedAt === null) {
+            return null;
+        }
+        return \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->deletedAt);
     }
 
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    public function setDeletedAt(?string $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
         return $this;
