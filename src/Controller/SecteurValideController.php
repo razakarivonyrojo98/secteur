@@ -78,11 +78,12 @@ final class SecteurValideController extends AbstractController
         public function delete(Request $request, SecteurValide $secteurValide, EntityManagerInterface $entityManager): Response
         {
             if ($this->isCsrfTokenValid('delete'.$secteurValide->getId(), $request->getPayload()->getString('_token'))) {
-                $secteurValide->setDeletedAt(new \DateTimeImmutable()); // Marquer comme supprimé
+                // On crée la date au format string 'Y-m-d H:i:s' (ou 'Y-m-d' si tu préfères)
+                $dateNow = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
+                $secteurValide->setDeletedAt($dateNow); // Marquer comme supprimé en string
                 $entityManager->flush();
             }
 
             return $this->redirectToRoute('app_secteur_valide_index', [], Response::HTTP_SEE_OTHER);
         }
-
 }
