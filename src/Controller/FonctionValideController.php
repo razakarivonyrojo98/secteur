@@ -78,11 +78,15 @@ final class FonctionValideController extends AbstractController
     #[Route('/{id}', name: 'app_fonction_valide_delete', methods: ['POST'])]
     public function delete(Request $request, FonctionValide $fonctionValide, EntityManagerInterface $entityManager): Response
     {
-            if ($this->isCsrfTokenValid('delete'.$fonctionValide->getId(), $request->getPayload()->getString('_token'))) {
-                $fonctionValide->setDeletedAt(new \DateTimeImmutable()); // Marquer comme supprimé
-                $entityManager->flush();
-            }
+        if ($this->isCsrfTokenValid('delete'.$fonctionValide->getId(), $request->request->get('_token'))) {
+            // Stocker la date actuelle au format string, ex: '2025-08-11'
+            $now = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+            $fonctionValide->setDeletedAt($now->format('Y-m-d'));
+            
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_fonction_valide_index');
     }
+
 }
