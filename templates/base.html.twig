@@ -279,23 +279,19 @@
     </div>
   <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const listItems = document.querySelectorAll(".menu li");
+    const menuLinks = document.querySelectorAll(".menu li a");
 
-    listItems.forEach(function (item) {
-        item.addEventListener("click", function (e) {
-            e.preventDefault(); // Empêche le rechargement si lien
-            listItems.forEach(li => li.classList.remove("active")); // Retire l'actif
-            this.classList.add("active"); // Ajoute sur celui cliqué
-
-            location.reload()
+    menuLinks.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            e.preventDefault(); // On empêche la navigation immédiate
+            menuLinks.forEach(l => l.classList.remove("active")); // Retire l'actif
+            this.classList.add("active"); // Met actif sur le lien cliqué
+            
+            // Redirige vers la route définie dans le href
+            window.location.href = this.getAttribute("href");
         });
     });
 });
-		{#$(document).ready(function(){
-			$(".hamburger").click(function(){
-			   $(".wrapper").toggleClass("collapse");
-			});
-		});#}
 
 </script>
 
