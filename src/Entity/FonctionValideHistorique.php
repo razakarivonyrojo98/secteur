@@ -17,8 +17,8 @@ class FonctionValideHistorique
     #[ORM\JoinColumn(nullable: false)]
     private ?FonctionValide $fonctionValide = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    private ?\DateTimeImmutable $dateModification = null;
+    #[ORM\Column(type: 'string', length: 19, nullable: true)]
+    private ?string $dateModification = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $modifiePar = null;
@@ -26,8 +26,9 @@ class FonctionValideHistorique
 
     public function __construct()
     {
-        $this->dateModification = new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo'));
+        $this->dateModification = (new \DateTimeImmutable('now', new \DateTimeZone('Indian/Antananarivo')))->format('Y-m-d H:i:s');
     }
+
 
     public function getId(): ?int
     {
@@ -47,12 +48,19 @@ class FonctionValideHistorique
 
     public function getDateModification(): ?\DateTimeImmutable
     {
-        return $this->dateModification;
+        if ($this->dateModification === null) {
+            return null;
+        }
+        return \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->dateModification);
     }
 
-    public function setDateModification(\DateTimeImmutable $dateModification): self
+    public function setDateModification(\DateTimeImmutable|string $dateModification): self
     {
-        $this->dateModification = $dateModification;
+        if ($dateModification instanceof \DateTimeImmutable) {
+            $this->dateModification = $dateModification->format('Y-m-d H:i:s');
+        } else {
+            $this->dateModification = $dateModification;
+        }
         return $this;
     }
 
