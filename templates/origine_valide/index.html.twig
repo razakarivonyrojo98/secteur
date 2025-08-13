@@ -11,6 +11,11 @@
     #refreshTable:active {
         transform: rotate(180deg);
     }
+    .btn-add {
+    display: flex;
+    flex: nowrap;
+    gap: 5px;
+}
     </style>
 {% endblock %}
 
@@ -39,7 +44,7 @@
                     <a class="btn btn-outline-secondary" id="refreshTable" title="Rafraîchir">
                         <i class="bi bi-arrow-clockwise"></i>
                     </a>
-                    <a class="add btn btn-primary" href="{{ path('app_origine_valide_new') }}">
+                    <a class="add btn btn-primary btn-add" href="{{ path('app_origine_valide_new') }}">
                         <i class="bi bi-plus-circle"></i> Ajouter
                     </a>
                 </div>
