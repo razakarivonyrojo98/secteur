@@ -265,21 +265,21 @@
           <ul class="menu">
               <li>
                   <a href="{{ path('app_secteur_valide_index') }}"
-                  class="{{ app.request.attributes.get('_route') == 'app_secteur_valide_index' ? 'active' : '' }}">
+                  class="{{ app.request.attributes.get('_route') starts with 'app_secteur_valide' ? 'active' : '' }}">
                       <i class="bi bi-diagram-3"></i><span> Secteurs</span>
                   </a>
               </li>
 
               <li>
                   <a href="{{ path('app_fonction_valide_index') }}"
-                  class="{{ app.request.attributes.get('_route') == 'app_fonction_valide_index' ? 'active' : '' }}">
+                  class="{{ app.request.attributes.get('_route') starts with 'app_fonction_valide' ? 'active' : '' }}">
                       <i class="bi bi-person-gear"></i><span> Fonctions</span>
                   </a>
               </li>
 
               <li>
                   <a href="{{ path('app_origine_valide_index') }}"
-                  class="{{ app.request.attributes.get('_route') == 'app_origine_valide_index' ? 'active' : '' }}">
+                  class="{{ app.request.attributes.get('_route') starts with 'app_origine_valide' ? 'active' : '' }}">
                       <i class="bi bi-globe"></i><span> Origines</span>
                   </a>
               </li>
