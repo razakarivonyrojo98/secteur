@@ -7,6 +7,6 @@ class InvalidUserStatusException extends AuthenticationException
 {
     public function getMessageKey(): string
     {
-        return 'Votre compte est désactivé ou en attente de validation.';
+        return "Votre n'avez pas encore d'autorisation pour vous connecter. Veuiller contacter l'administrateur";
     }
 }
