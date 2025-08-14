@@ -7,6 +7,7 @@ class InvalidUserStatusException extends AuthenticationException
 {
     public function getMessageKey(): string
     {
-        return "Votre n'avez pas encore d'autorisation pour vous connecter. Veuiller contacter l'administrateur";
+        return "Vous n'avez pas encore d'autorisation pour vous connecter. Veuiller contacter l'administrateur";
     }
 }
+
