@@ -85,16 +85,42 @@ class ActiveDirectoryAuthenticator extends AbstractAuthenticator
 
     private function ensureUserExists($user_matricule, $user_password): User
     {
-        // Chercher l'utilisateur dans la base de données
+        // Vérifier dans la table user_autorized
+        $userAutorizedRepo = $this->entityManager->getRepository(\App\Entity\UserAutorized::class);
+        $userAutorized = $userAutorizedRepo->findOneBy(['matricule' => $user_matricule]);
+
+        if (!$userAutorized) {
+            // N'existe pas encore → on l'ajoute avec isAutorized = 0
+            $userAutorized = new \App\Entity\UserAutorized();
+            $userAutorized->setMatricule($user_matricule);
+            $userAutorized->setNom($user_matricule); // ou récupérer depuis LDAP si tu veux
+            $userAutorized->setIsAutorized(0);
+
+            $this->entityManager->persist($userAutorized);
+            $this->entityManager->flush();
+
+            throw new InvalidUserStatusException(
+                "Vous n'êtes pas encore autorisé, veuillez contacter l'administrateur."
+            );
+        }
+
+        if ($userAutorized->getIsAutorized() !== 1) {
+            // Existe mais pas encore autorisé
+            throw new InvalidUserStatusException(
+                "Vous n'êtes pas encore autorisé, veuillez contacter l'administrateur."
+            );
+        }
+
+        // S'il est autorisé → vérifier ou créer dans user
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['matricule' => $user_matricule]);
-        
+
         if ($user === null) {
-            // L'utilisateur est valide dans LDAP mais pas en base, le créer
             $user = $this->createUserFromLDAP($user_matricule, $user_password);
         }
-        
+
         return $user;
     }
+
 
     private function createUserFromLDAP(string $matricule, string $password): User
     {
@@ -135,7 +161,7 @@ class ActiveDirectoryAuthenticator extends AbstractAuthenticator
         } else {
             $errorMessage = 'Erreur d\'authentification.';
         }
-        $url = $this->router->generate('login', ['message' => $errorMessage]);
+        $url = $this->router->generate('app_login', ['message' => $errorMessage]);
         return new RedirectResponse($url);
     }
 }
