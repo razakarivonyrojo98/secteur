@@ -12,15 +12,9 @@
             <div class="login-header">
                 <img src= "{{ asset('image/logo-bfm.png') }}" />
             </div>
-            <div class="error-message">
-                
-            {% if error %}
-                <div class="alert alert-danger">Matricule ou mot de passe incorrect</div>
-            {% endif %}
-
-            </div>
-           
-
+                {% if app.request.get('message') %}
+                    <div class="error-message">{{ app.request.get('message') }}</div>
+                {% endif %}
             <form method="post" action="{{ path('app_login') }}" class="login-form">
                 <div class="form-group">
                     <label for="matricule">Matricule</label>
@@ -33,9 +27,6 @@
                 </div>
 
                 <button type="submit" class="login-btn">Connexion</button>
-                {% if app.request.get('message') %}
-                    <div class="alert alert-danger">{{ app.request.get('message') }}</div>
-                {% endif %}
             </form>
         </div>
     </div>
